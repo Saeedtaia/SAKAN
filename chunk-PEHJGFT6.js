@@ -1,1 +1,0 @@
-import{Tb as o,Ub as s,jc as p,sb as n}from"./chunk-TDTMS56S.js";var a=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-events"]],decls:2,vars:0,template:function(e,m){e&1&&(o(0,"p"),p(1,"events works!"),s())},encapsulation:2})};export{a as EventsComponent};
