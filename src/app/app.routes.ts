@@ -113,8 +113,6 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () =>
-      import('./components/undefined/undefined.component').then(
-        (m) => m.UndefinedComponent
-      ),
+      import('./layout/main/main.component').then((m) => m.MainComponent),
   },
 ];

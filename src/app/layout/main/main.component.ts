@@ -1,12 +1,14 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, OnInit, signal } from '@angular/core';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
+import { RouterOutlet } from '@angular/router';
 import { ContentComponent } from './content/content.component';
 
 @Component({
-    selector: 'app-main',
-    imports: [SidebarComponent, ContentComponent],
-    templateUrl: './main.component.html',
-    styleUrl: './main.component.scss'
+  selector: 'app-main',
+  standalone: true,
+  imports: [SidebarComponent, RouterOutlet, ContentComponent],
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.scss',
 })
 export class MainComponent {
   constructor() {}

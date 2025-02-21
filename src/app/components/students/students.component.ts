@@ -5,15 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BreadcrumbMenuComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { LoaderService } from '../../shared/services/loader-service.service';
-import { Store } from '@ngrx/store';
-import {
-  getLayout,
-  getLayoutdirection,
-  getLayoutmode,
-} from '../../shared/store/layout/layout-selector';
 
 @Component({
   selector: 'app-students',
+  standalone: true,
   imports: [
     RouterOutlet,
     RouterLink,
@@ -26,14 +21,8 @@ import {
   styleUrl: './students.component.scss',
 })
 export class StudentsComponent implements OnInit {
-  constructor(private loader: LoaderService, private store: Store) {}
+  constructor(private loader: LoaderService) {}
   ngOnInit(): void {
-    this.store.select(getLayoutmode).subscribe((data) => console.log(data));
-    this.store
-      .select(getLayoutdirection)
-      .subscribe((data) => console.log(data));
-    this.store.select(getLayout).subscribe((data) => console.log(data));
-
     // this.loader.show();
   }
   items = [

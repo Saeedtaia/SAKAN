@@ -1,16 +1,5 @@
 <section>
-  <div
-    class="grid w-full grid-cols-4 gap-4 mt-3 mb-5 lg:grid-cols-3 xss:grid-cols-2"
-  >
-    <div class="p-4 text-black bg-green-500">
-      <button (click)="test()">test</button>
-    </div>
-    <div class="p-4 text-black bg-slate-500" #counterElement>2000</div>
-    <div class="p-4 text-black bg-slate-500">{{ "total-app" | transloco }}</div>
-    <div class="p-4 text-black bg-slate-500">{{ "total-app" | transloco }}</div>
-    <div class="p-4 text-black bg-slate-500">{{ "total-app" | transloco }}</div>
-  </div>
-  <!-- start numerical data visualize -->
+  <!-- start numercal data visualize -->
   <div
     class="grid w-full grid-cols-3 gap-5 lg:grid-cols-3 xss:grid-cols-1 md:grid-cols-2"
   >
@@ -60,7 +49,7 @@
     </div>
     }
   </div>
-  <!-- end numerical data visualize -->
+  <!-- end numercal data visualize -->
   <!-- start charts visualize -->
   <div
     class="grid grid-cols-2 gap-4 xss:grid-cols-1 lg:grid-cols-2 md:grid-cols-2"
@@ -70,7 +59,7 @@
       pAnimateOnScroll
       [enterClass]="item.enterClass"
       [leaveClass]="item.leaveClass"
-      class="p-5 overflow-hidden rounded-md bg-slate-50 animate-duration-2000 animate-ease-in-out"
+      class="p-5 overflow-hidden rounded-md bg-slate-50 overflow-x-scrol animate-duration-2000 animate-ease-in-out"
     >
       <p-chart
         [type]="item.type"
@@ -80,7 +69,7 @@
       />
     </div>
     }@else {
-    <div class="p-5 overflow-hidden rounded-md bg-slate-50">
+    <div class="p-5 overflow-hidden rounded-md bg-slate-50 overflow-x-scrol">
       @defer (on viewport) {
       <p-chart
         [type]="item.type"
@@ -96,6 +85,17 @@
   </div>
   <!-- End charts visualize -->
 </section>
+<!-- <div
+    class="grid w-full grid-cols-4 gap-4 mt-3 lg:grid-cols-3 xss:grid-cols-2"
+  >
+    <div class="p-4 text-black bg-sky-600">
+      <p>{{ realtime }}</p>
+    </div>
+    <div class="p-4 text-black bg-green-500">
+      <button (click)="test()">test</button>
+    </div>
+    <div class="p-4 text-black bg-slate-500" #counterElement>2000</div>
+  </div> -->
 
 <!-- <div
     class="grid grid-cols-2 gap-4 mt-6 xss:grid-cols-1 lg:grid-cols-2 md:grid-cols-2"

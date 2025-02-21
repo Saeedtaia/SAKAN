@@ -1,9 +1,4 @@
-import { provideStoreDevtools } from '@ngrx/store-devtools';
-import {
-  ApplicationConfig,
-  provideZoneChangeDetection,
-  isDevMode,
-} from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -17,11 +12,6 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { errorHandlingInterceptor } from './shared/interceptors/error-handling.interceptor';
-import { provideStore } from '@ngrx/store';
-import { rootReducer } from './shared/store';
-import { environment } from '../environments/environment';
-import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@ngneat/transloco';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideAnimations(),
+    provideHttpClient(),
     provideHttpClient(withInterceptors([errorHandlingInterceptor])),
     provideHttpClient(withInterceptorsFromDi()),
     providePrimeNG({
@@ -38,23 +29,6 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: '.dark', // Apply when HTML has class "dark-mode"
         },
       },
-    }),
-    provideStore(rootReducer),
-    provideStoreDevtools({
-      maxAge: 25,
-      logOnly: environment.production,
-      trace: true,
-    }),
-    provideHttpClient(),
-    provideTransloco({
-      config: {
-        availableLangs: ['en', 'ar'],
-        defaultLang: 'en',
-        // Remove this option if your application doesn't support changing language in runtime.
-        reRenderOnLangChange: true,
-        prodMode: environment.production,
-      },
-      loader: TranslocoHttpLoader,
     }),
   ],
 };

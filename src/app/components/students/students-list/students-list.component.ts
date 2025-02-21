@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
@@ -11,23 +12,26 @@ import { Student } from '../../../shared/data/student/student';
 import { FAKE_STUDENTS } from '../../../shared/samples/student/mock-students';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
-    selector: 'app-students-list',
-    imports: [
-        RouterLink,
-        CommonModule,
-        InputTextModule,
-        TagModule,
-        ButtonModule,
-        DropdownModule,
-        FormsModule,
-        TableModule,
-        IconField,
-        InputIcon,
-    ],
-    templateUrl: './students-list.component.html',
-    styleUrl: './students-list.component.scss'
+  selector: 'app-students-list',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    CommonModule,
+    HttpClientModule,
+    InputTextModule,
+    TagModule,
+    ButtonModule,
+    DropdownModule,
+    FormsModule,
+    TableModule,
+    IconField,
+    InputIcon,
+  ],
+  templateUrl: './students-list.component.html',
+  styleUrl: './students-list.component.scss',
 })
 export class StudentsListComponent implements OnInit {
   students: Student[] = [];

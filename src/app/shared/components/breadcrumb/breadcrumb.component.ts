@@ -4,41 +4,34 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { filter } from 'rxjs';
-import {FAKE_STUDENTS} from '../../samples/student/mock-students';
-
-import { Student } from '../../../shared/data/student/student';
 
 @Component({
   selector: 'app-breadcrumb-menu',
+  standalone: true,
   imports: [Breadcrumb, MatButtonModule],
   templateUrl: './breadcrumb.component.html',
-  styleUrl: './breadcrumb.component.scss'
+  styleUrl: './breadcrumb.component.scss',
 })
 export class BreadcrumbMenuComponent implements OnInit {
-  menuitem: MenuItem[] = [];
+  menuitems: MenuItem[] = [];
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
-  students: Student[] = [];
-  filterdStudent!: Student|undefined;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-
-    this.students = [...FAKE_STUDENTS];
     this.updateBreadcrumb();
     this.router.events
-        .pipe(filter((event) => event instanceof NavigationEnd))
-        .subscribe(() => {
-          this.updateBreadcrumb();
-        });
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateBreadcrumb();
+      });
   }
 
   private updateBreadcrumb() {
-    this.menuitem = [{ label: 'Students', routerLink: '/Admin/Students/' }];
+    this.menuitems = [{ label: 'Students', routerLink: '/Admin/Students/' }];
 
     let currentRoute = this.activatedRoute.root;
     let url = '/Admin/';
-    let studentId: string | null ; // Store student ID
 
     while (currentRoute.firstChild) {
       currentRoute = currentRoute.firstChild;
@@ -50,25 +43,12 @@ export class BreadcrumbMenuComponent implements OnInit {
         }
 
         url += `/${pathSegment}`;
-        let label = this.getRouteLabel(pathSegment);
-
-        // If on "student-details", append student ID
-        if (pathSegment === 'student-details') {
-          studentId = currentRoute.snapshot.paramMap.get('StudentId');
-          this.filterdStudent = this.students.find(student =>
-              student.nationalID.toString() === studentId
-          );
-
-
-          if (studentId) {
-            label = `Student Details - ${this.filterdStudent?.firstName}  ${this.filterdStudent?.secondName} ${this.filterdStudent?.thirdName} ${this.filterdStudent?.fourthName}`; // Update label format
-            url += `/${studentId}`;
-          }
-        }
+        const label = this.getRouteLabel(pathSegment);
 
         if (label !== 'Unknown') {
           const isLastItem = !currentRoute.firstChild;
-          this.menuitem.push({
+
+          this.menuitems.push({
             label,
             routerLink: isLastItem ? url : null,
           });

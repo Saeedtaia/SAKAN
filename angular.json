@@ -18,8 +18,8 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "docs",
-            "baseHref": "/SAKAN/",
-            "deployUrl": "/SAKAN/",
+            "baseHref": "/Admin_Student_hotel/",
+            "deployUrl": "/Admin_Student_hotel/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -62,7 +62,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "5MB",
-                  "maximumError": "2MB"
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -124,10 +124,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@ngrx/schematics"
-    ]
   }
 }

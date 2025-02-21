@@ -5,6 +5,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { ScrollTop } from 'primeng/scrolltop';
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, LoaderComponent, ScrollTopModule, ScrollTop],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -8,10 +8,10 @@ export const studentDetailsGuard: CanActivateFn = (route, state) => {
   // Get 'StudentId' from route params
   const studentId = route.paramMap.get('StudentId');
 
-  if (Number(studentId)) {
+  if (studentId) {
     return true; // Allow navigation
   } else {
-    router.navigate(['/Admin/Students/students-details/0']); // Redirect to students-list
+    router.navigate(['/']); // Redirect to home or another page
     return false; // Block navigation
   }
 };

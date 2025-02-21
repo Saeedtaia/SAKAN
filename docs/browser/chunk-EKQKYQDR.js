@@ -1,1 +1,0 @@
-import{Ub as s,Vb as o,kc as i,sb as n}from"./chunk-SFPIYYXT.js";var p=class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=n({type:e,selectors:[["app-settings"]],decls:2,vars:0,template:function(t,m){t&1&&(s(0,"p"),i(1,"settings works!"),o())},encapsulation:2})};export{p as SettingsComponent};

@@ -1,4 +1,4 @@
-import { LoaderService } from '../../shared/services/loader-service.service';
+import { LoaderService } from './../../shared/services/loader-service.service';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -11,6 +11,7 @@ import {
   inject,
 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { scrollTriggeredAnimation } from '../../shared/animation/scrolltrigger';
 import { complexAnimationSequence } from '../../shared/animation/complix';
 import { animateCountNumbers } from '../../shared/animation/counter';
 import { isPlatformBrowser } from '@angular/common';
@@ -19,10 +20,10 @@ import { TooltipItem } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
 import { ProductService } from '../../shared/services/teast.service';
 import { AnimateOnScroll } from 'primeng/animateonscroll';
-import { TranslocoPipe } from '@ngneat/transloco';
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, ChartModule, AnimateOnScroll, TranslocoPipe],
+  standalone: true,
+  imports: [ButtonModule, ChartModule, AnimateOnScroll],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -724,9 +725,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
   test() {
     this.startLongProcess();
+    this.loader.show();
     this.product.getProducts(1, 10).subscribe({
       next: (data) => {
         console.log(data);
+        this.loader.hide();
       },
     });
   }
@@ -790,6 +793,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
   charts: Charts[] = [];
   VerticalBar() {
     if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--p-text-color');
+      const textColorSecondary = documentStyle.getPropertyValue(
+        '--p-text-muted-color'
+      );
+      const surfaceBorder = documentStyle.getPropertyValue(
+        '--p-content-border-color'
+      );
     }
 
     this.cd.markForCheck();

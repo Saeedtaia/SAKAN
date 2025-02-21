@@ -1,5 +1,5 @@
 <!-- students-list.component.html -->
-<section class="mt-5  ">
+<section class="mt-5">
   <div class="min-w-full overflow-hidden bg-transparent rounded-lg">
     @defer (on timer(1000ms)) {
     <p-table
@@ -148,7 +148,7 @@
             {{ student.thirdName }} {{ student.fourthName }}
           </td>
           <td>
-            <a [routerLink]="['/Admin/Students/student-details', student.nationalID]">
+            <a [routerLink]="['/Admin/Students/student-details', 100]">
               {{ student.nationalID }}
             </a>
           </td>

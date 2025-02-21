@@ -60,6 +60,3 @@ export class LoaderService {
     this.progressSubject.next(average);
   }
 }
-
-export class LoaderServiceService {
-}

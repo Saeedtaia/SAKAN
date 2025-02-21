@@ -5,9 +5,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { BadgeModule } from 'primeng/badge';
-import { LanguageSwitcherComponent } from '../langswitcher/langswitcher.component';
 @Component({
   selector: 'app-sidebar',
+  standalone: true,
   imports: [
     RouterLinkActive,
     RouterLink,
@@ -16,7 +16,6 @@ import { LanguageSwitcherComponent } from '../langswitcher/langswitcher.componen
     MatIconModule,
     OverlayBadgeModule,
     BadgeModule,
-    LanguageSwitcherComponent,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',

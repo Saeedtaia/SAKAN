@@ -21,26 +21,22 @@
       aria-label="Save"
     /> -->
     @if (!isLeftSidebarCollapsed()) {
-    <div class="logo-text Dancing">Dashboard</div>
+    <div class="logo-text">Dashboard</div>
     <button class="btn-close" (click)="closeSidenav()">
       <i class="fal fa-times close-icon"></i>
     </button>
     }
   </div>
   <div class="sidenav-nav">
-    @if(isLeftSidebarCollapsed()){
-    <!-- <li class="mt-2 sidenav-nav-item Dancing">
-      <app-langswitcher />
-    </li> -->
-    @for (item of items; track $index) {
+    @if(isLeftSidebarCollapsed()){ @for (item of items; track $index) {
     <li
-      class="mt-2 sidenav-nav-item Dancing"
+      class="mt-2 sidenav-nav-item"
       matTooltipPosition="right"
-      matTooltipClass="custom-tooltip Dancing"
+      matTooltipClass="custom-tooltip"
       [matTooltip]="item.label"
     >
       <a
-        class="sidenav-nav-link Dancing"
+        class="sidenav-nav-link"
         [routerLink]="item.routeLink"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: false }"
@@ -52,15 +48,11 @@
         }@else {
         <i class="sidenav-link-icon" [class]="item.icon"></i>
         } @if (!isLeftSidebarCollapsed()) {
-        <span class="sidenav-link-text Dancing">{{ item.label }}</span>
+        <span class="sidenav-link-text">{{ item.label }}</span>
         }
       </a>
     </li>
-    } } @if(!isLeftSidebarCollapsed()){
-    <!-- <li class="mt-2 sidenav-nav-item Dancing">
-      <app-langswitcher />
-    </li> -->
-    @for (item of items; track $index) {
+    } } @if(!isLeftSidebarCollapsed()){ @for (item of items; track $index) {
     <li class="mt-2 sidenav-nav-item">
       @if(item.overlaybadge == 'true'){
       <a
@@ -71,7 +63,7 @@
       >
         <i class="sidenav-link-icon" [class]="item.icon"></i>
         @if (!isLeftSidebarCollapsed()) {
-        <span class="sidenav-link-text Dancing">{{ item.label }}</span>
+        <span class="sidenav-link-text">{{ item.label }}</span>
         <p-badge [value]="2" severity="warn" class="mx-3" />
         }
       </a>
@@ -84,7 +76,7 @@
       >
         <i class="sidenav-link-icon" [class]="item.icon"></i>
         @if (!isLeftSidebarCollapsed()) {
-        <span class="sidenav-link-text Dancing">{{ item.label }}</span>
+        <span class="sidenav-link-text">{{ item.label }}</span>
         }
       </a>
       }

@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { ScrollTop } from 'primeng/scrolltop';
 @Component({
-    selector: 'app-content',
-    imports: [RouterOutlet, NgClass, ScrollTopModule, ScrollTop],
-    templateUrl: './content.component.html',
-    styleUrl: './content.component.scss'
+  selector: 'app-content',
+  standalone: true,
+  imports: [RouterOutlet, NgClass, ScrollTopModule, ScrollTop],
+  templateUrl: './content.component.html',
+  styleUrl: './content.component.scss',
 })
 export class ContentComponent {
   isLeftSidebarCollapsed = input.required<boolean>();

@@ -5,9 +5,10 @@ import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../services/loader-service.service';
 
 @Component({
-    imports: [CommonModule, MatProgressBarModule],
-    selector: 'app-loader',
-    template: `
+  standalone: true,
+  imports: [CommonModule, MatProgressBarModule],
+  selector: 'app-loader',
+  template: `
     <div class="loader-container" [class.active]="isLoading$ | async">
       <div class="fixed top-0 z-10 w-full">
         <mat-progress-bar mode="query"></mat-progress-bar>
@@ -20,7 +21,7 @@ import { LoaderService } from '../../services/loader-service.service';
       </div>
     </div>
   `,
-    styleUrl: './loader.component.scss'
+  styleUrl: './loader.component.scss',
 })
 export class LoaderComponent {
   get isLoading$() {

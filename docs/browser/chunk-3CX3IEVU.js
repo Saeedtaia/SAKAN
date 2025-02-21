@@ -1,1 +1,0 @@
-import{Ub as n,Vb as p,kc as s,sb as t}from"./chunk-SFPIYYXT.js";var m=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=t({type:o,selectors:[["app-employees"]],decls:2,vars:0,template:function(e,a){e&1&&(n(0,"p"),s(1,"employees works!"),p())},encapsulation:2})};export{m as EmployeesComponent};
