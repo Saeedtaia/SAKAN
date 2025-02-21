@@ -1,0 +1,1 @@
+import{Tb as i,Ub as n,jc as r,sb as t}from"./chunk-TDTMS56S.js";var s=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=t({type:o,selectors:[["app-dormitories"]],decls:2,vars:0,template:function(e,p){e&1&&(i(0,"p"),r(1,"dormitories works!"),n())},encapsulation:2})};export{s as DormitoriesComponent};
