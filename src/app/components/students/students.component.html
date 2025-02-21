@@ -1,0 +1,28 @@
+<section>
+  <div class="grid grid-cols-12">
+    <div class="items-center content-center col-span-1 gap-4 xss:col-span-2">
+      <button
+        class="bg-cyan-700"
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon class="text-2xl">more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        @for (item of items; track $index) {
+        <button mat-menu-item [routerLink]="item.routeLink">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </button>
+        }
+      </mat-menu>
+    </div>
+    <div
+      class="items-center content-center col-span-11 px-4 text-slate-50 rounded-xl xss:overflow-x-clip xss:col-span-10 text-nowrap"
+    >
+      <app-breadcrumb-menu />
+    </div>
+  </div>
+  <div class="mt-5"><router-outlet /></div>
+</section>

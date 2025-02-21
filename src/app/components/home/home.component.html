@@ -1,0 +1,121 @@
+<section>
+  <div
+    class="grid w-full grid-cols-4 gap-4 mt-3 mb-5 lg:grid-cols-3 xss:grid-cols-2"
+  >
+    <div class="p-4 text-black bg-green-500">
+      <button (click)="test()">test</button>
+    </div>
+    <div class="p-4 text-black bg-slate-500" #counterElement>2000</div>
+    <div class="p-4 text-black bg-slate-500">{{ "total-app" | transloco }}</div>
+    <div class="p-4 text-black bg-slate-500">{{ "total-app" | transloco }}</div>
+    <div class="p-4 text-black bg-slate-500">{{ "total-app" | transloco }}</div>
+  </div>
+  <!-- start numerical data visualize -->
+  <div
+    class="grid w-full grid-cols-3 gap-5 lg:grid-cols-3 xss:grid-cols-1 md:grid-cols-2"
+  >
+    @for(item of TotalStudents; track $index){
+    <div
+      #complexDiv
+      class="p-5 my-0 border rounded-md shadow-md border-sky-200 card"
+    >
+      <div class="flex flex-row-reverse items-center justify-between">
+        <div
+          class="flex items-center justify-center h-12 rounded-full shadow-md text-9xl text-sky-100 bg-sky-400 icon-container w-14"
+        >
+          <i [class]="item.icon"></i>
+        </div>
+        <div class="grid w-full grid-cols-1">
+          <h2 class="mb-3 text-xl font-semibold tracking-tight">
+            {{ item.lable }}
+          </h2>
+          <p>
+            <span class="text-blue-950" #counterElement>{{ item.value }}</span>
+            <span class="text-lg text-sky-400"> {{ item.coin }} </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    } @for(item of TotalStudents; track $index){
+    <div
+      #complexDiv
+      class="p-5 border rounded-md shadow-md border-sky-200 card"
+    >
+      <div class="flex flex-row-reverse items-center justify-between">
+        <div
+          class="flex items-center justify-center h-12 rounded-full shadow-md text-9xl text-sky-100 bg-sky-400 icon-container w-14"
+        >
+          <i [class]="item.icon"></i>
+        </div>
+        <div class="grid w-full grid-cols-1">
+          <h2 class="mb-3 text-xl font-semibold tracking-tight">
+            {{ item.lable }}
+          </h2>
+          <p>
+            <span class="text-blue-950" #counterElement>{{ item.value }}</span>
+            <span class="text-lg text-sky-400"> {{ item.coin }} </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  <!-- end numerical data visualize -->
+  <!-- start charts visualize -->
+  <div
+    class="grid grid-cols-2 gap-4 xss:grid-cols-1 lg:grid-cols-2 md:grid-cols-2"
+  >
+    @for(item of charts; track $index){ @if(item.pAnimateOnScroll){
+    <div
+      pAnimateOnScroll
+      [enterClass]="item.enterClass"
+      [leaveClass]="item.leaveClass"
+      class="p-5 overflow-hidden rounded-md bg-slate-50 animate-duration-2000 animate-ease-in-out"
+    >
+      <p-chart
+        [type]="item.type"
+        [data]="item.data"
+        [options]="item.options"
+        class="max-h-full min-w-full"
+      />
+    </div>
+    }@else {
+    <div class="p-5 overflow-hidden rounded-md bg-slate-50">
+      @defer (on viewport) {
+      <p-chart
+        [type]="item.type"
+        [data]="item.data"
+        [options]="item.options"
+        class="max-h-full min-w-full"
+      />
+      } @placeholder {
+      <div class="text-center text-gray-500 Dancing">Loading charts...</div>
+      }
+    </div>
+    } }
+  </div>
+  <!-- End charts visualize -->
+</section>
+
+<!-- <div
+    class="grid grid-cols-2 gap-4 mt-6 xss:grid-cols-1 lg:grid-cols-2 md:grid-cols-2"
+  >
+    @for (item of charts; track $index) { @if ($index === 0 || $index === 1) {
+    <div #complexDiv class="p-5 rounded-md bg-slate-50">
+      <p-chart
+        [type]="item.type"
+        [data]="item.data"
+        [options]="item.options"
+        class="max-h-full min-w-full"
+      />
+    </div>
+    } @else {
+    <div class="p-5 rounded-md bg-slate-50">
+      <p-chart
+        [type]="item.type"
+        [data]="item.data"
+        [options]="item.options"
+        class="max-h-full min-w-full"
+      />
+    </div>
+    } } -->

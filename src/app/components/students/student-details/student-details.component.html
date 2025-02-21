@@ -1,0 +1,203 @@
+<section>
+  <div class=" rounded-3xl bg-slate-50 ">
+    <div class="bg-gray-100 min-h-screen [font-family:'Noto_Naskh_Arabic',_sans-serif]" dir="auto">
+      @if (filterdStudent){
+        <div class="container mx-auto px-4 py-8" >
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <!-- Header Section -->
+            <div class="bg-[#012A5B] p-6">
+              <div class="flex flex-wrap justify-between items-center gap-4">
+                <h1 class="text-2xl font-bold text-white text-start">
+                  البيانات الشخصية للطالب - {{ filterdStudent.firstName }} {{ filterdStudent.fourthName }}
+                </h1>
+                <span class="bg-white text-[#012A5B] px-4 py-2 rounded-full  text-sm font-semibold rtl:ms-2 ltr:me-2">
+            الرقم الأكاديمي: {{ filterdStudent.studentCode }}
+          </span>
+              </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="p-6">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Personal Information Column -->
+                <div class="space-y-6">
+                  <!-- Personal Info -->
+                  <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-gray-800 border-b-2 border-blue-100 pb-2 text-start">
+                      المعلومات الأساسية
+                    </h2>
+                    <dl class="grid grid-cols-2 gap-4">
+                      <div class="col-span-2 text-center">
+                        <dt class="text-sm text-gray-500 text-start">صورة الملف الشخص</dt>
+                        <p-avatar
+                          [styleClass]="'m-auto'"
+                          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                          size="xlarge"
+                          shape="circle"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <dt class="text-sm text-gray-500 text-start">الاسم الكامل</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.firstName }} {{ filterdStudent.secondName }}
+                          {{ filterdStudent.thirdName }} {{ filterdStudent.fourthName }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">الجنسية</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.countryId  }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">الجنس</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.gender | genderTranslate }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">تاريخ الميلاد</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.birthDate | date: 'dd MMMM y' }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">مكان الميلاد</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.placeOfBirth }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">الحالة الاجتماعية</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.isMarried ? 'متزوج' : 'أعزب' }}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <!-- Contact Info -->
+                  <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-gray-800 border-b-2 border-blue-100 pb-2 text-start">
+                      معلومات الاتصال
+                    </h2>
+                    <div class="space-y-2">
+                      <div class="flex items-center gap-2 rtl:flex-row-reverse">
+                        <svg class="w-5 h-5 text-gray-500 shrink-0" viewBox="0 0 20 20">
+                          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                        </svg>
+                        <span class="font-semibold">{{ filterdStudent.phone }}</span>
+                      </div>
+                      @if (filterdStudent.telephone){
+                        <div class="flex items-center gap-2 rtl:flex-row-reverse" >
+                          <svg class="w-5 h-5 text-gray-500 shrink-0" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                          </svg>
+                          <span class="font-semibold">{{ filterdStudent.telephone }}</span>
+                        </div>
+                      }
+                      <div class="flex items-center gap-2 rtl:flex-row-reverse">
+                        <svg class="w-5 h-5 text-gray-500 shrink-0" viewBox="0 0 20 20">
+                          <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        </svg>
+                        <span class="font-semibold">{{ filterdStudent.email }}</span>
+                      </div>
+                      <div class="mt-2 text-sm text-gray-600">
+                        {{ filterdStudent.addressLine }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Academic Column -->
+                <div class="space-y-6">
+                  <!-- Academic Info -->
+                  <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-gray-800 border-b-2 border-blue-100 pb-2 text-start">
+                      المعلومات الأكاديمية
+                    </h2>
+                    <dl class="grid grid-cols-2 gap-4">
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">الكلية</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.collegeID  }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start mb-2">السنة الدراسية</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded ">
+                      الفرقة {{ filterdStudent.academicYear | arabicNumber }}
+                    </span>
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">رقم الغرفة</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.roomID }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">مكان الإقامة</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.residencePlace  }}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <!-- Additional Info -->
+                  <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-gray-800 border-b-2 border-blue-100 pb-2 text-start">
+                      معلومات إضافية
+                    </h2>
+                    <dl class="grid grid-cols-2 gap-4">
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">الديانة</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.religion }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">ذوي الاحتياجات</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.hasSpecialNeeds ? 'نعم' : 'لا' }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">رقم الهوية</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.nationalID }}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm text-gray-500 text-start">رقم الوالد</dt>
+                        <dd class="font-semibold text-gray-800 text-start">
+                          {{ filterdStudent.guardianID }}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-6 py-4">
+              <div class="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-600">
+          <span class="order-last rtl:order-first">
+            تاريخ التقديم: {{ filterdStudent.birthDate | date: 'dd/MM/yyyy'  }}
+          </span>
+                <span class="order-first rtl:order-last">
+            آخر تحديث: {{ currentDate | date: 'dd/MM/yyyy' }}
+          </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+</section>

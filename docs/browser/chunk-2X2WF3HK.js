@@ -1,0 +1,1 @@
+import{Ub as o,Vb as i,kc as d,sb as t}from"./chunk-SFPIYYXT.js";var p=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=t({type:n,selectors:[["app-undefined"]],decls:2,vars:0,template:function(e,a){e&1&&(o(0,"p"),d(1,"undefined works!"),i())},encapsulation:2})};export{p as UndefinedComponent};

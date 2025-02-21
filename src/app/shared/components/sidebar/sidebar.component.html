@@ -1,0 +1,94 @@
+<div
+  class="sidenav"
+  [ngClass]="isLeftSidebarCollapsed() ? 'sidenav-collapsed' : ''"
+>
+  <div class="logo-container">
+    <!-- <button class="logo" (click)="toggleCollapse()">
+      <mat-icon>menu</mat-icon>
+    </button> -->
+    <button
+      class="w-12 p-1 text-2xl font-black text-center bg-white border-none rounded-md cursor-pointer min-w-12"
+      (click)="toggleCollapse()"
+      mat-mini-fab
+      aria-label="Example icon button with a menu icon"
+    >
+      <mat-icon class="text-2xl font-extrabold text-black">menu</mat-icon>
+    </button>
+    <!-- <p-button
+      class="w-full bg-transparent logo"
+      (click)="toggleCollapse()"
+      icon="pi pi-bars"
+      aria-label="Save"
+    /> -->
+    @if (!isLeftSidebarCollapsed()) {
+    <div class="logo-text Dancing">Dashboard</div>
+    <button class="btn-close" (click)="closeSidenav()">
+      <i class="fal fa-times close-icon"></i>
+    </button>
+    }
+  </div>
+  <div class="sidenav-nav">
+    @if(isLeftSidebarCollapsed()){
+    <!-- <li class="mt-2 sidenav-nav-item Dancing">
+      <app-langswitcher />
+    </li> -->
+    @for (item of items; track $index) {
+    <li
+      class="mt-2 sidenav-nav-item Dancing"
+      matTooltipPosition="right"
+      matTooltipClass="custom-tooltip Dancing"
+      [matTooltip]="item.label"
+    >
+      <a
+        class="sidenav-nav-link Dancing"
+        [routerLink]="item.routeLink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        @if(item.overlaybadge == 'true'){
+        <p-overlaybadge value="2" badgeSize="small" severity="danger">
+          <i class="sidenav-link-icon" [class]="item.icon"></i>
+        </p-overlaybadge>
+        }@else {
+        <i class="sidenav-link-icon" [class]="item.icon"></i>
+        } @if (!isLeftSidebarCollapsed()) {
+        <span class="sidenav-link-text Dancing">{{ item.label }}</span>
+        }
+      </a>
+    </li>
+    } } @if(!isLeftSidebarCollapsed()){
+    <!-- <li class="mt-2 sidenav-nav-item Dancing">
+      <app-langswitcher />
+    </li> -->
+    @for (item of items; track $index) {
+    <li class="mt-2 sidenav-nav-item">
+      @if(item.overlaybadge == 'true'){
+      <a
+        class="sidenav-nav-link"
+        [routerLink]="item.routeLink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        <i class="sidenav-link-icon" [class]="item.icon"></i>
+        @if (!isLeftSidebarCollapsed()) {
+        <span class="sidenav-link-text Dancing">{{ item.label }}</span>
+        <p-badge [value]="2" severity="warn" class="mx-3" />
+        }
+      </a>
+      }@else {
+      <a
+        class="sidenav-nav-link"
+        [routerLink]="item.routeLink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        <i class="sidenav-link-icon" [class]="item.icon"></i>
+        @if (!isLeftSidebarCollapsed()) {
+        <span class="sidenav-link-text Dancing">{{ item.label }}</span>
+        }
+      </a>
+      }
+    </li>
+    } }
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<!-- content.component.html -->
+<div class="body" [ngClass]="sizeClass()">
+  <router-outlet></router-outlet>
+</div>
+<p-scrolltop
+  target="parent"
+  [threshold]="50"
+  icon="pi pi-arrow-up"
+  [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }"
+/>
