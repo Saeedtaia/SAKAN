@@ -42,6 +42,9 @@ jobs:
       - name: Move build files to docs/browser
         run: mv $DIST_DIR/* docs/browser/ || echo "No files to move"
 
+      - name: Copy index.html to 404.html
+        run: cp docs/browser/index.html docs/browser/404.html
+
       - name: Disable Jekyll (Fix GitHub Pages Error)
         run: touch docs/browser/.nojekyll
 
