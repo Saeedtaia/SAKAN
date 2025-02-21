@@ -72,7 +72,7 @@ export class BreadcrumbMenuComponent implements OnInit {
   }
 
   private isValidSegment(segment: string): boolean {
-    const ignoredSegments = ['Admin_Student_hotel', 'Admin'];
+    const ignoredSegments = ['SAKAN', 'Admin'];
     return !ignoredSegments.includes(segment);
   }
 }
