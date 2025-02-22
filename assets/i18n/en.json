@@ -17,5 +17,15 @@
    "title": "Faculty: {label}",
    "label": "{dataset}: {value}"
   }
+ },
+ "breadcrumb": {
+  "studentsList": "Students List",
+  "applications": "Applications",
+  "studentData": "Student Data",
+  "tickets": "Tickets",
+  "messages": "Messages",
+  "studentDetails": "Student Details",
+  "events": "Events",
+  "unknown": "Unknown"
  }
 }

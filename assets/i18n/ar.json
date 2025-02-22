@@ -17,5 +17,15 @@
    "title": "الكلية: {label}",
    "label": "{dataset}: {value}"
   }
+ },
+ "breadcrumb": {
+  "studentsList": "قائمة الطلاب",
+  "applications": "الطلبات",
+  "studentData": "بيانات الطالب",
+  "tickets": "التذاكر",
+  "messages": "الرسائل",
+  "studentDetails": "تفاصيل الطالب",
+  "events": "الفعاليات",
+  "unknown": "غير معروف"
  }
 }
