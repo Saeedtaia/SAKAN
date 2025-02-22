@@ -5,8 +5,8 @@ import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { filter } from 'rxjs';
 import { FAKE_STUDENTS } from '../../samples/student/mock-students';
-
 import { Student } from '../../../shared/data/student/student';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-breadcrumb-menu',
@@ -17,28 +17,45 @@ import { Student } from '../../../shared/data/student/student';
 })
 export class BreadcrumbMenuComponent implements OnInit {
   menuitem: MenuItem[] = [];
-  home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
+  home: MenuItem = { icon: 'pi pi-home', label: '', routerLink: '/' };
   students: Student[] = [];
   filterdStudent!: Student | undefined;
+  currentLang: 'en' | 'ar' = 'en';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private translocoService: TranslocoService
+  ) {}
 
   ngOnInit(): void {
     this.students = [...FAKE_STUDENTS];
+    this.currentLang = this.translocoService.getActiveLang() as 'en' | 'ar';
     this.updateBreadcrumb();
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.updateBreadcrumb();
       });
+
+    this.translocoService.langChanges$.subscribe((lang) => {
+      this.currentLang = lang as 'en' | 'ar';
+      this.updateBreadcrumb();
+    });
   }
 
   private updateBreadcrumb() {
-    this.menuitem = [{ label: 'Students', routerLink: '/Admin/Students/' }];
+    this.menuitem = [
+      {
+        label: this.currentLang === 'ar' ? 'الطلاب' : 'Students',
+        routerLink: '/Admin/Students/',
+      },
+    ];
 
     let currentRoute = this.activatedRoute.root;
     let url = '/Admin/';
-    let studentId: string | null; // Store student ID
+    let studentId: string | null;
 
     while (currentRoute.firstChild) {
       currentRoute = currentRoute.firstChild;
@@ -50,22 +67,38 @@ export class BreadcrumbMenuComponent implements OnInit {
         }
 
         url += `/${pathSegment}`;
-        let label = this.getRouteLabel(pathSegment);
+        let label = this.getLabel(pathSegment);
 
-        // If on "student-details", append student ID
         if (pathSegment === 'student-details') {
           studentId = currentRoute.snapshot.paramMap.get('StudentId');
           this.filterdStudent = this.students.find(
             (student) => student.nationalID.toString() === studentId
           );
 
-          if (studentId) {
-            label = `Student Details - ${this.filterdStudent?.firstName}  ${this.filterdStudent?.secondName} ${this.filterdStudent?.thirdName} ${this.filterdStudent?.fourthName}`; // Update label format
+          if (studentId && this.filterdStudent) {
+            const nameParts =
+              this.currentLang === 'ar'
+                ? [
+                    this.filterdStudent.firstName,
+                    this.filterdStudent.secondName,
+                    this.filterdStudent.thirdName,
+                    this.filterdStudent.fourthName,
+                  ]
+                : [
+                    this.filterdStudent.firstName,
+                    this.filterdStudent.secondName,
+                    this.filterdStudent.thirdName,
+                    this.filterdStudent.fourthName,
+                  ];
+
+            label = `${this.getLabel('student-details')} - ${nameParts.join(
+              ' '
+            )}`;
             url += `/${studentId}`;
           }
         }
 
-        if (label !== 'Unknown') {
+        if (label !== 'Unknown' && label !== 'غير معروف') {
           const isLastItem = !currentRoute.firstChild;
           this.menuitem.push({
             label,
@@ -76,18 +109,22 @@ export class BreadcrumbMenuComponent implements OnInit {
     }
   }
 
-  private getRouteLabel(route: string): string {
-    const labels: { [key: string]: string } = {
-      'students-list': 'Students List',
-      'students-Applications': 'Applications',
-      'students-Data': 'Student Data',
-      'students-Tickets': 'Tickets',
-      'students-Messages': 'Messages',
-      'student-details': 'Student Details',
-      Events: 'Events',
+  private getLabel(route: string): string {
+    const labels: { [key: string]: { en: string; ar: string } } = {
+      'students-list': { en: 'Students List', ar: 'قائمة الطلاب' },
+      'students-Applications': { en: 'Applications', ar: 'الطلبات' },
+      'students-Data': { en: 'Student Data', ar: 'بيانات الطالب' },
+      'students-Tickets': { en: 'Tickets', ar: 'التذاكر' },
+      'students-Messages': { en: 'Messages', ar: 'الرسائل' },
+      'student-details': { en: 'Student Details', ar: 'تفاصيل الطالب' },
+      Events: { en: 'Events', ar: 'الفعاليات' },
     };
 
-    return labels[route] || 'Unknown';
+    const translation = labels[route];
+    if (!translation) {
+      return this.currentLang === 'ar' ? 'غير معروف' : 'Unknown';
+    }
+    return this.currentLang === 'ar' ? translation.ar : translation.en;
   }
 
   private isValidSegment(segment: string): boolean {

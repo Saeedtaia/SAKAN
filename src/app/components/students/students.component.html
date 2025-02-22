@@ -14,13 +14,13 @@
       <!-- Custom dropdown menu -->
       @if (isMenuOpen) {
       <div
-        class="absolute left-0 z-50 w-56 mt-1 origin-top-left bg-white rounded shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="absolute z-50 w-56 mt-1 origin-top-left bg-white rounded shadow-xl ltr:left-0 rtl:right-0 ring-1 ring-black ring-opacity-5 focus:outline-none"
       >
         <div class="py-1.5 text-xl">
           @for (item of items; track $index) {
           <a
             [routerLink]="item.routeLink"
-            routerLinkActive="text-[#FFFFFF] bg-[#012A5B] rounded-none"
+            routerLinkActive="text-slate-50 bg-[#012A5B] rounded-none"
             class="flex my-2 items-center px-4 py-2 text-sm font-medium text-gray-900 rounded-lg no-underline transition-colors duration-100 cursor-pointer hover:text-[#FFFFFF] hover:bg-[#012A5B]"
             (click)="toggleMenu()"
           >
@@ -34,7 +34,7 @@
     </div>
 
     <div
-      class="items-center content-center col-span-11 px-4 text-slate-50 rounded-xl xss:overflow-x-clip xss:col-span-10 text-nowrap"
+      class="items-center content-center col-span-11 text-slate-50 rounded-xl xss:overflow-x-clip xss:col-span-10 text-nowrap"
     >
       <app-breadcrumb-menu />
     </div>
