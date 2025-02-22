@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
+import { PrimeNG } from 'primeng/config';
+import { TranslocoService } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
@@ -12,12 +14,13 @@ import { Student } from '../../../shared/data/student/student';
 import { FAKE_STUDENTS } from '../../../shared/samples/student/mock-students';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { TranslocoPipe } from '@ngneat/transloco';
+
 @Component({
   selector: 'app-students-list',
   standalone: true,
   imports: [
-    RouterOutlet,
     RouterLink,
     CommonModule,
     HttpClientModule,
@@ -29,9 +32,11 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     TableModule,
     IconField,
     InputIcon,
+    TranslocoPipe,
   ],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.scss',
+  providers: [PrimeNG],
 })
 export class StudentsListComponent implements OnInit {
   students: Student[] = [];
@@ -39,16 +44,41 @@ export class StudentsListComponent implements OnInit {
   selectedGender: string | null = null;
 
   genders = [
-    { label: 'Male', value: 'M' },
-    { label: 'Female', value: 'F' },
+    { label: 'genders.male', value: 'M' },
+    { label: 'genders.female', value: 'F' },
   ];
 
+  constructor(
+    private primengConfig: PrimeNG,
+    private translocoService: TranslocoService
+  ) {}
+
   ngOnInit(): void {
+    this.setupTranslations();
+
     // Simulate API call
     setTimeout(() => {
       this.students = [...FAKE_STUDENTS];
       this.loading = false;
     }, 1000);
+  }
+
+  private setupTranslations() {
+    // Initial load
+    this.translocoService
+      .selectTranslateObject('primeng')
+      .subscribe((translations) => {
+        this.primengConfig.setTranslation(translations);
+      });
+
+    // Language change listener
+    this.translocoService.langChanges$.subscribe((lang) => {
+      this.translocoService
+        .selectTranslateObject('primeng')
+        .subscribe((translations) => {
+          this.primengConfig.setTranslation(translations);
+        });
+    });
   }
 
   clear(table: Table) {

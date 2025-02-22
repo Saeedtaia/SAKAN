@@ -27,5 +27,43 @@
   "studentDetails": "Student Details",
   "events": "Events",
   "unknown": "Unknown"
- }
+ },
+ "fullname": "Full Name",
+ "NationalID": "National ID",
+ "Phone": "Phone",
+ "BirthDate": "Birth Date",
+ "Gender": "Gender",
+ "SpecialNeeds": "Special Needs",
+ "Email": "Email",
+ "genders": {
+  "male": "Male",
+  "female": "Female"
+ },
+ "Clear": "Clear",
+ "primeng": {
+  "startsWith": "Starts with",
+  "contains": "Contains",
+  "notContains": "Not contains",
+  "endsWith": "Ends with",
+  "equals": "Equals",
+  "notEquals": "Not equals",
+  "lt": "Less than",
+  "lte": "Less than or equal to",
+  "gt": "Greater than",
+  "gte": "Greater than or equal to",
+  "is": "Is",
+  "isNot": "Is not",
+  "before": "Before",
+  "after": "After",
+  "clear": "Clear",
+  "apply": "Apply",
+  "matchAll": "Match All",
+  "matchAny": "Match Any",
+  "addRule": "Add Rule",
+  "removeRule": "Remove Rule"
+ },
+ "NoStudentsFound": "No students found",
+ "LoadingStudents": "Loading students data...",
+ "SearchStudent": "Search student...",
+ "All": "All"
 }
