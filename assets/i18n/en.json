@@ -1,3 +1,8 @@
 {
- "s": "sssssssss"
+ "students": "Total Students",
+ "student": "Student",
+ "totalApplications": "Total Applications",
+ "application": "Application",
+ "totalDormitories": "Total Available Dormitories",
+ "dormitory": "Dormitory"
 }

@@ -1,0 +1,1 @@
+import{Ib as n,Jb as o,_b as a,hc as m,ja as t}from"./chunk-HGCVNQNP.js";var p=class s{static \u0275fac=function(e){return new(e||s)};static \u0275cmp=t({type:s,selectors:[["app-messages"]],standalone:!0,features:[m],decls:2,vars:0,template:function(e,r){e&1&&(n(0,"p"),a(1,"messages works!"),o())}})};export{p as MessagesComponent};
