@@ -27,5 +27,43 @@
   "studentDetails": "تفاصيل الطالب",
   "events": "الفعاليات",
   "unknown": "غير معروف"
- }
+ },
+ "fullname": "الاسم الكامل",
+ "NationalID": "الهوية الوطنية",
+ "Phone": "الهاتف",
+ "BirthDate": "تاريخ الميلاد",
+ "Gender": "الجنس",
+ "SpecialNeeds": "الاحتياجات الخاصة",
+ "Email": "البريد الإلكتروني",
+ "genders": {
+  "male": "ذكر",
+  "female": "أنثى"
+ },
+ "Clear": "امسح الفلترة",
+ "primeng": {
+  "startsWith": "يبدأ ب",
+  "contains": "يحتوي على",
+  "notContains": "لا يحتوي على",
+  "endsWith": "ينتهي ب",
+  "equals": "يساوي",
+  "notEquals": "لا يساوي",
+  "lt": "أقل من",
+  "lte": "أقل من أو يساوي",
+  "gt": "أكبر من",
+  "gte": "أكبر من أو يساوي",
+  "is": "هو",
+  "isNot": "ليس",
+  "before": "قبل",
+  "after": "بعد",
+  "clear": "مسح",
+  "apply": "تطبيق",
+  "matchAll": "مطابقة الكل",
+  "matchAny": "مطابقة أي",
+  "addRule": "إضافة قاعدة",
+  "removeRule": "حذف قاعدة"
+ },
+ "NoStudentsFound": "لم يتم العثور على طلاب",
+ "LoadingStudents": "جاري تحميل بيانات الطلاب...",
+ "SearchStudent": "ابحث عن طالب...",
+ "All": "الكل"
 }
