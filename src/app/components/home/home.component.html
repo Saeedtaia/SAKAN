@@ -29,11 +29,13 @@
         </div>
         <div class="grid w-full grid-cols-1">
           <h2 class="mb-3 text-xl font-semibold tracking-tight">
-            {{ item.lable }}
+            {{ item.lable | transloco }}
           </h2>
           <p>
             <span class="text-blue-950" #counterElement>{{ item.value }}</span>
-            <span class="text-lg text-sky-400"> {{ item.coin }} </span>
+            <span class="text-lg text-sky-400">
+              {{ item.coin | transloco }}
+            </span>
           </p>
         </div>
       </div>
@@ -51,11 +53,13 @@
         </div>
         <div class="grid w-full grid-cols-1">
           <h2 class="mb-3 text-xl font-semibold tracking-tight">
-            {{ item.lable }}
+            {{ item.lable | transloco }}
           </h2>
           <p>
             <span class="text-blue-950" #counterElement>{{ item.value }}</span>
-            <span class="text-lg text-sky-400"> {{ item.coin }} </span>
+            <span class="text-lg text-sky-400">
+              {{ item.coin | transloco }}</span
+            >
           </p>
         </div>
       </div>

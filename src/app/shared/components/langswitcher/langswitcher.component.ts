@@ -69,6 +69,8 @@ export class LanguageSwitcherComponent {
   currentLanguage = signal<LanguageConfig>(this.getCurrentLanguage());
 
   constructor() {
+    const initialLang = this.currentLanguage();
+    this.transloco.setActiveLang(initialLang.code);
     // Persist language selection
     effect(() => {
       const lang = this.currentLanguage();

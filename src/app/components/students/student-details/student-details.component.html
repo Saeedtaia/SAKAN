@@ -3,34 +3,11 @@
     <div class="grid items-center content-center grid-cols-1 col-span-1 p-2">
       <div class="mx-auto overflow-hidden">
         <div class="flex items-center content-center w-40 h-40 rounded-full">
-          <p-image
-            src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
-            [preview]="true"
-            alt="Image"
-          >
-            <ng-template #indicator class="rounded-full">
-              <i class="pi pi-search"></i>
-            </ng-template>
-            <ng-template #image>
-              <p-avatar
-                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                size="xlarge"
-                shape="circle"
-              ></p-avatar>
-            </ng-template>
-            <ng-template
-              #preview
-              let-style="style"
-              let-previewCallback="previewCallback"
-            >
-              <img
-                src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                alt="image"
-                [style]="style"
-                (click)="previewCallback()"
-              />
-            </ng-template>
-          </p-image>
+          <p-avatar
+            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            size="xlarge"
+            shape="circle"
+          ></p-avatar>
         </div>
       </div>
     </div>

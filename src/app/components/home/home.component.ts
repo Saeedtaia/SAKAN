@@ -21,10 +21,12 @@ import { ChartModule } from 'primeng/chart';
 import { ProductService } from '../../shared/services/teast.service';
 import { AnimateOnScroll } from 'primeng/animateonscroll';
 import { charts } from '../../shared/samples/charts/charts';
+import { TranslocoPipe } from '@ngneat/transloco';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonModule, ChartModule, AnimateOnScroll],
+  imports: [ButtonModule, ChartModule, AnimateOnScroll, TranslocoPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -84,22 +86,22 @@ export class HomeComponent implements AfterViewInit, OnInit {
   //#region upper numerical data
   TotalStudents = [
     {
-      lable: 'Total accepted Students',
+      lable: 'students',
       value: 3202,
       icon: 'text-2xl fal fa-users',
-      coin: 'Student',
+      coin: 'student',
     },
     {
-      lable: 'Total Applications',
+      lable: 'totalApplications',
       value: 4222,
       icon: 'text-2xl fal fa-map',
-      coin: 'Application',
+      coin: 'application',
     },
     {
-      lable: 'Total Avilable Dromatries',
+      lable: 'totalDormitories',
       value: 13,
       icon: 'text-2xl fal fa-home',
-      coin: 'Dromatry',
+      coin: 'dormitory',
     },
   ];
   //#endregion

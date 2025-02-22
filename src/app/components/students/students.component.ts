@@ -2,7 +2,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { BreadcrumbMenuComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { LoaderService } from '../../shared/services/loader-service.service';
 
@@ -11,6 +11,7 @@ import { LoaderService } from '../../shared/services/loader-service.service';
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLinkActive,
     RouterLink,
     MatButtonModule,
     MatMenuModule,
@@ -21,6 +22,11 @@ import { LoaderService } from '../../shared/services/loader-service.service';
   styleUrl: './students.component.scss',
 })
 export class StudentsComponent implements OnInit {
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
   constructor(private loader: LoaderService) {}
   ngOnInit(): void {
     // this.loader.show();
