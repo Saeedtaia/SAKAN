@@ -1,0 +1,1 @@
+import{Hb as o,Ib as a,Zb as p,gc as s,ja as n}from"./chunk-VI74OV7Z.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-auth"]],standalone:!0,features:[s],decls:2,vars:0,template:function(e,r){e&1&&(o(0,"p"),p(1,"auth works!"),a())}})};export{i as AuthComponent};
