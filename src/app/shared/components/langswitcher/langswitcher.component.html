@@ -1,0 +1,64 @@
+<!-- language-switcher.component.html -->
+<div class="relative language-switcher">
+  <button
+    (click)="toggleSwitcher()"
+    class="flex items-center gap-2 p-2 transition-all rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+  >
+    <span class="text-xl">{{ currentLanguage().flag }}</span>
+    <span class="font-medium">{{ currentLanguage().label }}</span>
+    <svg
+      class="w-4 h-4 transition-transform"
+      [class.rotate-180]="isOpen()"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </button>
+
+  @if (isOpen()) {
+  <div
+    @slideInOut
+    class="absolute right-0 z-50 w-32 overflow-hidden bg-white border rounded-lg shadow-xl top-12 dark:bg-gray-900 dark:border-gray-800"
+  >
+    @for(lang of languages;track $index){
+    <div
+      (click)="selectLanguage(lang)"
+      (keydown.enter)="selectLanguage(lang)"
+      tabindex="0"
+      class="flex items-center gap-3 p-3 transition-colors cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+      [class.bg-gray-50]="lang.code === currentLanguage().code"
+    >
+      <span class="text-xl">{{ lang.flag }}</span>
+      <div class="flex-1">
+        <div class="font-medium">{{ lang.label }}</div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">
+          {{ lang.code | Uppercase }}
+        </div>
+      </div>
+      @if (lang.code === currentLanguage().code) {
+      <svg
+        class="w-5 h-5 text-primary-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

@@ -12,6 +12,9 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { errorHandlingInterceptor } from './shared/interceptors/error-handling.interceptor';
+import { TranslocoHttpLoader } from './transloco-loader';
+import { provideTransloco } from '@ngneat/transloco';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +32,17 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: '.dark', // Apply when HTML has class "dark-mode"
         },
       },
+    }),
+    provideHttpClient(),
+    provideTransloco({
+      config: {
+        availableLangs: ['en', 'ar'],
+        defaultLang: 'en',
+        // Remove this option if your application doesn't support changing language in runtime.
+        reRenderOnLangChange: true,
+        prodMode: environment.production,
+      },
+      loader: TranslocoHttpLoader,
     }),
   ],
 };

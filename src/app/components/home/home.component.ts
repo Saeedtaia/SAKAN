@@ -20,10 +20,18 @@ import { TooltipItem } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
 import { ProductService } from '../../shared/services/teast.service';
 import { AnimateOnScroll } from 'primeng/animateonscroll';
+import { LanguageSwitcherComponent } from '../../shared/components/langswitcher/langswitcher.component';
+import { TranslocoPipe } from '@ngneat/transloco';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonModule, ChartModule, AnimateOnScroll],
+  imports: [
+    ButtonModule,
+    ChartModule,
+    AnimateOnScroll,
+    LanguageSwitcherComponent,
+    TranslocoPipe,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
