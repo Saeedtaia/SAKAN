@@ -1,0 +1,1 @@
+import{Fb as n,Gb as i,Xb as r,ec as s,ha as o}from"./chunk-BRUDVILL.js";var m=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-dormitories"]],standalone:!0,features:[s],decls:2,vars:0,template:function(e,p){e&1&&(n(0,"p"),r(1,"dormitories works!"),i())}})};export{m as DormitoriesComponent};

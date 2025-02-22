@@ -5,5 +5,17 @@
  "totalApplications": "إجمالي الطلبات",
  "application": "طلب",
  "totalDormitories": "إجمالي المهاجع المتاحة",
- "dormitory": "مبني"
+ "dormitory": "مبني",
+ "charts": {
+  "admissions": {
+   "title": "إحصائيات قبول الطلاب",
+   "subtitle": "مقارنة بين عدد المتقدمين والطلاب المقبولين",
+   "applications": "إجمالي الطلاب الذين ملأوا الطلب",
+   "accepted": "إجمالي الطلاب المقبولين"
+  },
+  "tooltip": {
+   "title": "الكلية: {label}",
+   "label": "{dataset}: {value}"
+  }
+ }
 }

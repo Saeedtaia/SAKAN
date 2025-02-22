@@ -1,0 +1,1 @@
+import{Fb as o,Gb as s,Xb as a,ec as p,ha as n}from"./chunk-BRUDVILL.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-events"]],standalone:!0,features:[p],decls:2,vars:0,template:function(e,r){e&1&&(o(0,"p"),a(1,"events works!"),s())}})};export{i as EventsComponent};

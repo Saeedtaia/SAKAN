@@ -5,5 +5,17 @@
  "totalApplications": "Total Applications",
  "application": "Application",
  "totalDormitories": "Total Available Dormitories",
- "dormitory": "Dormitory"
+ "dormitory": "Dormitory",
+ "charts": {
+  "admissions": {
+   "title": "Student Admission Statistics",
+   "subtitle": "Comparison of Applications vs Accepted Students",
+   "applications": "Total Students Fill the Application",
+   "accepted": "Total Students accepted"
+  },
+  "tooltip": {
+   "title": "Faculty: {label}",
+   "label": "{dataset}: {value}"
+  }
+ }
 }
