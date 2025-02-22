@@ -1,5 +1,5 @@
 <section>
-  <div
+  <!-- <div
     class="grid w-full grid-cols-4 gap-4 mt-3 mb-5 lg:grid-cols-3 xss:grid-cols-2"
   >
     <div class="p-4 text-black bg-green-500">
@@ -11,12 +11,12 @@
     <div class="p-4 text-black bg-slate-500">{{ "s" | transloco }}</div>
     <div class="p-4 text-black bg-slate-500">{{ "s" | transloco }}</div>
     <div class="p-4 text-black bg-slate-500">{{ "s" | transloco }}</div>
-  </div>
+  </div> -->
   <!-- start numercal data visualize -->
   <div
     class="grid w-full grid-cols-3 gap-5 lg:grid-cols-3 xss:grid-cols-1 md:grid-cols-2"
   >
-    @for(item of TotalStudents; track $index){
+    @defer () { @for(item of TotalStudents; track $index){
     <div
       #complexDiv
       class="p-5 my-0 border rounded-md shadow-md border-sky-200 card"
@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    }
+    } }
   </div>
   <!-- end numercal data visualize -->
   <!-- start charts visualize -->

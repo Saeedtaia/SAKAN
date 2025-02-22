@@ -1,3 +1,8 @@
 {
- "s": "5555555555555555555555"
+ "students": "إجمالي الطلاب",
+ "student": "طالب",
+ "totalApplications": "إجمالي الطلبات",
+ "application": "طلب",
+ "totalDormitories": "إجمالي المهاجع المتاحة",
+ "dormitory": "مهجع"
 }

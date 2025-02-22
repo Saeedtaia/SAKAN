@@ -10,6 +10,8 @@ import {
 import { TranslocoService } from '@ngneat/transloco';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CustomUppercasePipe } from '../../pipes/uppercase.pipe';
+// import * as $ from "jquery"
+declare var $: any;
 
 interface LanguageConfig {
   code: string;
@@ -72,7 +74,8 @@ export class LanguageSwitcherComponent {
       const lang = this.currentLanguage();
       localStorage.setItem('preferredLanguage', lang.code);
       document.documentElement.lang = lang.code;
-      document.documentElement.dir = lang.direction;
+      // document.documentElement.dir = lang.direction;
+      $('app-content').attr('dir', `${lang.direction}`);
     });
   }
 
