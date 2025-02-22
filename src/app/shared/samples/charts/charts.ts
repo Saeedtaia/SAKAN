@@ -36,6 +36,7 @@ export const charts: Charts[] = [
       responsive: true,
       maintainAspectRatio: false,
       aspectRatio: 0.8,
+      devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
       plugins: {
         legend: {
           display: true,
@@ -82,6 +83,9 @@ export const charts: Charts[] = [
       scales: {
         x: {
           ticks: {
+            autoSkip: false,
+            maxRotation: 45,
+            minRotation: 45,
             color: '#475569', // Slate-500 color
             font: {
               size: 13,
@@ -163,6 +167,7 @@ export const charts: Charts[] = [
       responsive: true,
       maintainAspectRatio: false,
       aspectRatio: 0.8,
+      devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
       plugins: {
         legend: {
           display: true,
@@ -197,6 +202,7 @@ export const charts: Charts[] = [
           color: '#64748b', // Slate-400 color
           padding: { bottom: 10 },
         },
+
         tooltip: {
           enabled: true,
           backgroundColor: 'rgba(30, 41, 59, 0.9)', // Slate-800 with transparency
@@ -214,6 +220,9 @@ export const charts: Charts[] = [
       scales: {
         x: {
           ticks: {
+            autoSkip: false,
+            maxRotation: 45,
+            minRotation: 45,
             color: '#475569', // Slate-500 color
             font: {
               size: 13,
@@ -263,94 +272,133 @@ export const charts: Charts[] = [
     },
   },
   {
-    type: 'pie',
+    type: 'bar',
     data: {
       labels: [
-        'B F C A I',
-        'B F E B S',
-        'B F E B',
-        'B F M B S',
-        'B C P T',
-        'B F o S',
-        'B F A',
-        'B F o C',
-        'B F o L',
-        'B F P E',
+        'Benha',
+        'Tokh',
+        'Moshtohr',
+        'Shobra',
+        'Qalube',
+        'Qaha',
+        'shbeen',
       ],
       datasets: [
         {
-          label: 'Total Students Fill the Application',
-          backgroundColor: [
-            '#3B82F6', // Blue-500
-            '#10B981', // Emerald-500
-            '#F59E0B', // Amber-500
-            '#EF4444', // Red-500
-            '#8B5CF6', // Violet-500
-            '#EC4899', // Pink-500
-            '#14B8A6', // Teal-500
-            '#F43F5E', // Rose-500
-            '#22C55E', // Green-500
-            '#EAB308', // Yellow-500
-          ],
-          borderColor: '#ffffff', // White border for better separation
-          borderWidth: 2,
-          data: [1122, 559, 810, 420, 560, 550, 400, 811, 903, 1000],
-          hoverOffset: 10, // Makes the hovered section stand out
+          type: 'bar',
+          label: 'Fish',
+          backgroundColor: '#3B82F6',
+          data: [50, 25, 12, 48, 90, 76, 42],
+        },
+        {
+          type: 'bar',
+          label: 'Tomato',
+          backgroundColor: '#EF4444',
+          data: [21, 84, 24, 75, 37, 65, 34],
+        },
+        {
+          type: 'bar',
+          label: 'Vegs',
+          backgroundColor: '#8B5CF6',
+          data: [41, 52, 24, 74, 23, 21, 32],
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      aspectRatio: 0.8,
+      devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
+      aspectRatio: 0.6,
       plugins: {
-        legend: {
-          display: true,
-          position: 'bottom', // Moves legend to right for better layout
-          labels: {
-            color: '#334155', // Slate-600
-            font: {
-              size: 14,
-              weight: 'bold',
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(30, 41, 59, 0.9)', // Slate-800 with transparency
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          padding: 10,
+          cornerRadius: 5,
+          callbacks: {
+            label: function (context: TooltipItem<'bar'>) {
+              return ` ${context.dataset.label}: ${context.raw}`;
             },
-            boxWidth: 16,
-            boxHeight: 16,
-            padding: 15,
           },
         },
         title: {
           display: true,
-          text: 'Student Admission Distribution',
+          text: 'Quantity of Food',
           font: {
             size: 18,
             weight: 'bold',
           },
-          color: '#1E293B', // Slate-800
+          color: '#1e293b', // Slate-800 color
           padding: { top: 10, bottom: 20 },
         },
-        tooltip: {
-          enabled: true,
-          backgroundColor: 'rgba(30, 41, 59, 0.9)', // Dark Slate-800 with opacity
-          titleFont: { size: 14, weight: 'bold' },
-          bodyFont: { size: 12 },
-          padding: 12,
-          cornerRadius: 6,
-          callbacks: {
-            label: (context: TooltipItem<'pie'>) => {
-              const value = context.raw as number; // Ensure it's a number
-              const total = context.dataset.data.reduce(
-                (sum, val) => sum + (typeof val === 'number' ? val : 0),
-                0
-              );
-              const percentage = ((value / total) * 100).toFixed(1) + '%';
-              return ` ${context.label}: ${value} (${percentage})`;
+        subtitle: {
+          display: true,
+          text: 'Available Quantity of Food Items In every Dromatory',
+          font: {
+            size: 14,
+            style: 'italic',
+          },
+          color: '#64748b', // Slate-400 color
+          padding: { bottom: 10 },
+        },
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            color: '#475569', // Slate-500 color
+            font: {
+              size: 14,
+              weight: 'bold',
             },
+            boxWidth: 12,
+            boxHeight: 12,
+          },
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+            autoSkip: false,
+            maxRotation: 45,
+            minRotation: 45,
+            color: '#475569',
+            font: {
+              size: 13,
+              weight: 500,
+            },
+          },
+          grid: {
+            color: 'rgba(71, 85, 105, 0.2)',
+            drawBorder: false,
+          },
+        },
+        y: {
+          stacked: true,
+          ticks: {
+            color: '#475569',
+            font: {
+              size: 13,
+            },
+          },
+          grid: {
+            color: 'rgba(71, 85, 105, 0.2)',
+            drawBorder: false,
           },
         },
       },
       animation: {
-        duration: 3200, // Smooth fade-in animation
+        duration: 3000, // Smooth transition on load
         easing: 'easeOutBounce',
+      },
+      elements: {
+        bar: {
+          borderRadius: 6, // Rounded bars
+          hoverBackgroundColor: '#334155', // Darker slate on hover
+          hoverBorderWidth: 2,
+        },
       },
     },
   },
@@ -405,15 +453,221 @@ export const charts: Charts[] = [
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      aspectRatio: 0.8,
+      devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
+      aspectRatio: 0.6,
+      plugins: {
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(30, 41, 59, 0.9)', // Slate-800 with transparency
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          padding: 10,
+          cornerRadius: 5,
+          callbacks: {
+            label: function (context: TooltipItem<'bar'>) {
+              return ` ${context.dataset.label}: ${context.raw}`;
+            },
+          },
+        },
+        title: {
+          display: true,
+          text: 'Quantity of Food',
+          font: {
+            size: 18,
+            weight: 'bold',
+          },
+          color: '#1e293b', // Slate-800 color
+          padding: { top: 10, bottom: 20 },
+        },
+        subtitle: {
+          display: true,
+          text: 'Available Quantity of Food Items In every Dromatory',
+          font: {
+            size: 14,
+            style: 'italic',
+          },
+          color: '#64748b', // Slate-400 color
+          padding: { bottom: 10 },
+        },
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            color: '#475569', // Slate-500 color
+            font: {
+              size: 14,
+              weight: 'bold',
+            },
+            boxWidth: 12,
+            boxHeight: 12,
+          },
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+            autoSkip: false,
+            maxRotation: 45,
+            minRotation: 45,
+            color: '#475569',
+            font: {
+              size: 13,
+              weight: 500,
+            },
+          },
+          grid: {
+            color: 'rgba(71, 85, 105, 0.2)',
+            drawBorder: false,
+          },
+        },
+        y: {
+          stacked: true,
+          ticks: {
+            color: '#475569',
+            font: {
+              size: 13,
+            },
+          },
+          grid: {
+            color: 'rgba(71, 85, 105, 0.2)',
+            drawBorder: false,
+          },
+        },
+      },
       animation: {
-        duration: 3200, // Smooth fade-in animation
+        duration: 3000, // Smooth transition on load
         easing: 'easeOutBounce',
       },
+      elements: {
+        bar: {
+          borderRadius: 6, // Rounded bars
+          hoverBackgroundColor: '#334155', // Darker slate on hover
+          hoverBorderWidth: 2,
+        },
+      },
+    },
+    // options: {
+    //   responsive: true,
+    //   maintainAspectRatio: false,
+    //   aspectRatio: 0.6,
+    //   devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
+    //   animation: {
+    //     duration: 3200, // Smooth fade-in animation
+    //     easing: 'easeOutBounce',
+    //   },
+    //   plugins: {
+    //     scales: {
+    //       x: {
+    //         stacked: true,
+    //         ticks: {
+    //           autoSkip: true,
+    //           maxRotation: 30,
+    //           minRotation: 30,
+    //           color: '#475569',
+    //           font: {
+    //             size: 13,
+    //             weight: 500,
+    //           },
+    //         },
+    //         grid: {
+    //           color: 'rgba(71, 85, 105, 0.2)',
+    //           drawBorder: false,
+    //         },
+    //       },
+    //     },
+    //     legend: {
+    //       display: true,
+    //       position: 'top', // Moves legend to right for better layout
+    //       labels: {
+    //         color: '#334155', // Slate-600
+    //         font: {
+    //           size: 14,
+    //           weight: 'bold',
+    //         },
+    //         boxWidth: 16,
+    //         boxHeight: 16,
+    //         padding: 15,
+    //       },
+    //     },
+    //     title: {
+    //       display: true,
+    //       text: 'Every students in every academic year',
+    //       color: '#1E293B', // Dark blue-gray for better contrast
+    //       font: {
+    //         size: 18,
+    //         weight: 'bold',
+    //       },
+    //       padding: { top: 10, bottom: 20 },
+    //     },
+    //     layout: {
+    //       padding: {
+    //         left: 20,
+    //         right: 20,
+    //         top: 10,
+    //         bottom: 10,
+    //       },
+    //     },
+
+    //     subtitle: {
+    //       display: false,
+    //       text: 'Category-wise comparison of stacked data',
+    //       font: {
+    //         size: 14,
+    //         style: 'italic',
+    //       },
+    //       color: '#64748B', // Slate-400 color
+    //       padding: { bottom: 10 },
+    //     },
+    //   },
+    // },
+  },
+  {
+    type: 'pie',
+    data: {
+      labels: [
+        'B F C A I',
+        'B F E B S',
+        'B F E B',
+        'B F M B S',
+        'B C P T',
+        'B F o S',
+        'B F A',
+        'B F o C',
+        'B F o L',
+        'B F P E',
+      ],
+      datasets: [
+        {
+          label: 'Total Students Fill the Application',
+          backgroundColor: [
+            '#3B82F6', // Blue-500
+            '#10B981', // Emerald-500
+            '#F59E0B', // Amber-500
+            '#EF4444', // Red-500
+            '#8B5CF6', // Violet-500
+            '#EC4899', // Pink-500
+            '#14B8A6', // Teal-500
+            '#F43F5E', // Rose-500
+            '#22C55E', // Green-500
+            '#EAB308', // Yellow-500
+          ],
+          borderColor: '#ffffff', // White border for better separation
+          borderWidth: 2,
+          data: [1122, 559, 810, 420, 560, 550, 400, 811, 903, 1000],
+          hoverOffset: 10, // Makes the hovered section stand out
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
       plugins: {
         legend: {
           display: true,
-          position: 'top', // Moves legend to right for better layout
+          position: 'bottom', // Moves legend to right for better layout
           labels: {
             color: '#334155', // Slate-600
             font: {
@@ -427,35 +681,41 @@ export const charts: Charts[] = [
         },
         title: {
           display: true,
-          text: 'Every students in every academic year',
-          color: '#1E293B', // Dark blue-gray for better contrast
+          text: 'Student Admission Distribution',
           font: {
             size: 18,
             weight: 'bold',
           },
+          color: '#1E293B', // Slate-800
           padding: { top: 10, bottom: 20 },
         },
-        layout: {
-          padding: {
-            left: 20,
-            right: 20,
-            top: 10,
-            bottom: 10,
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(30, 41, 59, 0.9)', // Dark Slate-800 with opacity
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          padding: 12,
+          cornerRadius: 6,
+          callbacks: {
+            label: (context: TooltipItem<'pie'>) => {
+              const value = context.raw as number; // Ensure it's a number
+              const total = context.dataset.data.reduce(
+                (sum, val) => sum + (typeof val === 'number' ? val : 0),
+                0
+              );
+              const percentage = ((value / total) * 100).toFixed(1) + '%';
+              return ` ${context.label}: ${value} (${percentage})`;
+            },
           },
         },
-        subtitle: {
-          display: false,
-          text: 'Category-wise comparison of stacked data',
-          font: {
-            size: 14,
-            style: 'italic',
-          },
-          color: '#64748B', // Slate-400 color
-          padding: { bottom: 10 },
-        },
+      },
+      animation: {
+        duration: 3200, // Smooth fade-in animation
+        easing: 'easeOutBounce',
       },
     },
   },
+
   {
     type: 'doughnut',
     data: {
@@ -500,6 +760,7 @@ export const charts: Charts[] = [
       responsive: true,
       maintainAspectRatio: false,
       aspectRatio: 0.8,
+      devicePixelRatio: window.devicePixelRatio > 1 ? 2 : 1,
       cutout: '50%', // Adjusting the cutout size for better visibility
       plugins: {
         legend: {
@@ -553,133 +814,6 @@ export const charts: Charts[] = [
       },
       animation: {
         duration: 3200, // Smooth transition on load
-      },
-    },
-  },
-  {
-    type: 'bar',
-    data: {
-      labels: [
-        'Benha',
-        'Tokh',
-        'Moshtohr',
-        'Shobra',
-        'Qalube',
-        'Qaha',
-        'shbeen',
-      ],
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Fish',
-          backgroundColor: '#3B82F6',
-          data: [50, 25, 12, 48, 90, 76, 42],
-        },
-        {
-          type: 'bar',
-          label: 'Tomato',
-          backgroundColor: '#EF4444',
-          data: [21, 84, 24, 75, 37, 65, 34],
-        },
-        {
-          type: 'bar',
-          label: 'Vegs',
-          backgroundColor: '#8B5CF6',
-          data: [41, 52, 24, 74, 23, 21, 32],
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      aspectRatio: 0.8,
-      plugins: {
-        tooltip: {
-          enabled: true,
-          backgroundColor: 'rgba(30, 41, 59, 0.9)', // Slate-800 with transparency
-          titleFont: { size: 14, weight: 'bold' },
-          bodyFont: { size: 12 },
-          padding: 10,
-          cornerRadius: 5,
-          callbacks: {
-            label: function (context: TooltipItem<'bar'>) {
-              return ` ${context.dataset.label}: ${context.raw}`;
-            },
-          },
-        },
-        title: {
-          display: true,
-          text: 'Quantity of Food',
-          font: {
-            size: 18,
-            weight: 'bold',
-          },
-          color: '#1e293b', // Slate-800 color
-          padding: { top: 10, bottom: 20 },
-        },
-        subtitle: {
-          display: true,
-          text: 'Available Quantity of Food Items In every Dromatory',
-          font: {
-            size: 14,
-            style: 'italic',
-          },
-          color: '#64748b', // Slate-400 color
-          padding: { bottom: 10 },
-        },
-        legend: {
-          display: true,
-          position: 'top',
-          labels: {
-            color: '#475569', // Slate-500 color
-            font: {
-              size: 14,
-              weight: 'bold',
-            },
-            boxWidth: 12,
-            boxHeight: 12,
-          },
-        },
-      },
-      scales: {
-        x: {
-          stacked: true,
-          ticks: {
-            color: '#475569',
-            font: {
-              size: 13,
-              weight: 500,
-            },
-          },
-          grid: {
-            color: 'rgba(71, 85, 105, 0.2)',
-            drawBorder: false,
-          },
-        },
-        y: {
-          stacked: true,
-          ticks: {
-            color: '#475569',
-            font: {
-              size: 13,
-            },
-          },
-          grid: {
-            color: 'rgba(71, 85, 105, 0.2)',
-            drawBorder: false,
-          },
-        },
-      },
-      animation: {
-        duration: 3000, // Smooth transition on load
-        easing: 'easeOutBounce',
-      },
-      elements: {
-        bar: {
-          borderRadius: 6, // Rounded bars
-          hoverBackgroundColor: '#334155', // Darker slate on hover
-          hoverBorderWidth: 2,
-        },
       },
     },
   },

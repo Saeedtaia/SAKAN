@@ -150,7 +150,12 @@
             {{ student.thirdName }} {{ student.fourthName }}
           </td>
           <td>
-            <a [routerLink]="['/Admin/Students/student-details', 100]">
+            <a
+              [routerLink]="[
+                '/Admin/Students/student-details',
+                student.nationalID
+              ]"
+            >
               {{ student.nationalID }}
             </a>
           </td>

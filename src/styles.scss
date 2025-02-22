@@ -208,3 +208,12 @@ body {
     line-height: 1rem /* 16px */;
   }
 }
+/* For mobile horizontal scroll */
+@media (max-width: 430px) {
+  .chart-container {
+    -webkit-overflow-scrolling: touch;
+  }
+  .chart-wrapper::-webkit-scrollbar {
+    height: 4px;
+  }
+}
