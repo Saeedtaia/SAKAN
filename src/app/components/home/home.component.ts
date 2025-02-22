@@ -21,8 +21,8 @@ import { ChartModule } from 'primeng/chart';
 import { ProductService } from '../../shared/services/teast.service';
 import { AnimateOnScroll } from 'primeng/animateonscroll';
 import { charts } from '../../shared/samples/charts/charts';
-import { TranslocoPipe } from '@ngneat/transloco';
-
+import { TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { tap } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -34,9 +34,18 @@ export class HomeComponent implements AfterViewInit, OnInit {
   constructor(
     private cd: ChangeDetectorRef,
     private loader: LoaderService,
-    private product: ProductService
+    private product: ProductService,
+    private TranslocoService: TranslocoService
   ) {}
+  text: any;
   ngOnInit() {
+    this.text = this.TranslocoService.selectTranslate('students')
+      .pipe(tap((value) => value))
+      .subscribe();
+    // console.log(this.TranslocoService.selectTranslate('students')
+    // .pipe(tap(value => console.log(value)))
+    // .subscribe());
+
     setTimeout(() => {
       this.charts = charts;
     }, 1000);

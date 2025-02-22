@@ -14,7 +14,7 @@
   </div> -->
   <!-- start numercal data visualize -->
   <div
-    class="grid w-full grid-cols-3 gap-5 lg:grid-cols-3 xss:grid-cols-1 md:grid-cols-2"
+    class="grid w-full max-[430px]:text-xs grid-cols-3 gap-5 lg:grid-cols-3 max-[430px]:grid-cols-1 xss:grid-cols-1 md:grid-cols-2"
   >
     @defer () { @for(item of TotalStudents; track $index){
     <div
@@ -69,14 +69,14 @@
   <!-- end numercal data visualize -->
   <!-- start charts visualize -->
   <div
-    class="grid grid-cols-2 gap-4 xss:grid-cols-1 lg:grid-cols-2 md:grid-cols-2"
+    class="grid grid-cols-2 gap-4 max-[430px]:grid-cols-1 max-[430px]:text-xs xss:grid-cols-1 lg:grid-cols-2 md:grid-cols-2"
   >
     @for(item of charts; track $index){ @if(item.pAnimateOnScroll){
     <div
       pAnimateOnScroll
       [enterClass]="item.enterClass"
       [leaveClass]="item.leaveClass"
-      class="p-5 overflow-hidden rounded-md bg-slate-50 overflow-x-scrol animate-duration-2000 animate-ease-in-out"
+      class="p-5 max-[430px]:p-0 overflow-hidden rounded-md bg-slate-50 overflow-x-scrol animate-duration-2000 animate-ease-in-out"
     >
       <p-chart
         [type]="item.type"

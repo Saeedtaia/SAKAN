@@ -1,24 +1,29 @@
+// translation.utils.ts - Updated Service
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import { Observable, of, tap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root', // Or specify your desired provider scope
-})
+@Injectable({ providedIn: 'root' })
 export class TranslationService {
-  constructor(private transloco: TranslocoService) {}
+  constructor(private translocoService: TranslocoService) {}
 
-  saeedTranslate(key: string, fallback: string = ''): string {
-    try {
-      let translation = '';
-      this.transloco.selectTranslate(key).subscribe((translatedText) => {
-        console.log(translatedText);
-        translation = translatedText;
-      });
-
-      return translation && translation !== key ? translation : fallback;
-    } catch (error) {
-      console.warn(`Translation error for key "${key}":`, error);
-      return fallback;
-    }
+  // Add static method for direct access
+  static getTranslation(key: string, params?: Record<string, unknown>): string {
+    let text: any;
+    this.instance.translocoService
+      .selectTranslate(key, params)
+      .pipe(tap((value) => (text = value)))
+      .subscribe();
+    return text;
   }
+
+  // Instance method for observables
+  getTranslationObservable(
+    key: string,
+    params?: Record<string, unknown>
+  ): Observable<string> {
+    return this.translocoService.selectTranslate(key, params);
+  }
+
+  private static instance: TranslationService;
 }

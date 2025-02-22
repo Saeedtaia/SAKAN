@@ -202,3 +202,9 @@ body {
   font-family: "Dancing Script", cursive;
   font-weight: 700;
 }
+@media (max-width: 430px) {
+  .max-\[430px\]\:text-xs {
+    font-size: 0.5rem /* 12px */;
+    line-height: 1rem /* 16px */;
+  }
+}
