@@ -200,3 +200,226 @@
     }
   </div>
 </section>
+<!-- 
+<section class="mt-5">
+  <div
+    class="min-w-full overflow-hidden bg-transparent rounded-lg max-[430px]:text-xs"
+  >
+    @defer (on timer(1000ms)) {
+    <p-table
+      #dt1
+      [value]="students"
+      dataKey="studentID"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 30, 40, 50, 60]"
+      [loading]="loading"
+      [paginator]="true"
+      [globalFilterFields]="[
+        'firstName',
+        'thirdName',
+        'fourthName',
+        'secondName',
+        'nationalID',
+        'phone',
+        'email'
+      ]"
+      class="min-w-full"
+      styleClass="p-datatable-striped text-center"
+      tableStyleClass="p-datatable-striped text-center"
+      [tableStyle]="{
+        'background-color': '#dedc',
+        'border-radius': '15px !important'
+      }"
+    >
+      <ng-template #caption>
+        <div class="flex w-full">
+          <p-button
+            [label]="'Clear' | transloco"
+            [outlined]="false"
+            icon="pi pi-filter-slash"
+            (click)="clear(dt1)"
+          />
+          <p-iconField class="ml-auto rtl:ms-auto">
+            <p-inputIcon>
+              <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input
+              pInputText
+              type="text"
+              (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+              [placeholder]="'SearchStudent' | transloco"
+            />
+          </p-iconField>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr style="background-color: #334155 !important">
+          <th style="min-width: 12rem">
+            <div class="flex items-center">
+              {{ "fullname" | transloco }}
+              <p-columnFilter
+                type="text"
+                field="firstName"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width: 10rem">
+            <div class="flex items-center">
+              {{ "NationalID" | transloco }}
+              <p-columnFilter
+                type="text"
+                field="nationalID"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width: 10rem">
+            <div class="flex items-center">
+              {{ "Phone" | transloco }}
+              <p-columnFilter
+                type="text"
+                field="phone"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width: 10rem">
+            <div class="flex items-center">
+              {{ "BirthDate" | transloco }}
+              <p-columnFilter type="date" field="birthDate" display="menu">
+                <ng-template pTemplate="filter" let-filter="filterCallback">
+                  <p-calendar 
+  [(ngModel)]="filter.value"
+  (onSelect)="filter()"
+  [dateFormat]="PrimeNG.translation.dateFormat"
+  [showIcon]="true"
+  [showButtonBar]="true"
+  [monthNavigator]="true"
+  [yearNavigator]="true"
+  [yearRange]="'1900:2030'"
+  [dir]="translocoService.getActiveLang() === 'ar' ? 'rtl' : 'ltr'">
+  <ng-template pTemplate="header" *ngIf="translocoService.getActiveLang() === 'ar'">
+    <div class="flex justify-content-center">
+      <button 
+        type="button" 
+        pButton 
+        (click)="filter.value = getCurrentDate()" 
+        class="p-button-text" 
+        [label]="PrimeNG.translation.today ?? 'Today'">
+      </button>
+    </div>
+  </ng-template>
+</p-calendar>
+                </ng-template>
+              </p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width: 10rem">
+            <div class="flex items-center">
+              {{ "Gender" | transloco }}
+              <p-columnFilter field="gender" matchMode="equals" display="menu">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback"
+                >
+                  <p-dropdown
+                    [(ngModel)]="selectedGender"
+                    [options]="genders"
+                    (onChange)="filter($event.value)"
+                    [placeholder]="'All' | transloco"
+                  >
+                    <ng-template let-option pTemplate="item">
+                      <p-tag
+                        [value]="option.label | transloco"
+                        [severity]="getSeverity(option.value)"
+                      />
+                    </ng-template>
+                  </p-dropdown>
+                </ng-template>
+              </p-columnFilter>
+            </div>
+          </th>
+
+          <th style="min-width: 10rem">
+            <div class="flex items-center">
+              {{ "SpecialNeeds" | transloco }}
+              <p-columnFilter
+                type="boolean"
+                field="hasSpecialNeeds"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width: 12rem">
+            <div class="flex items-center">
+              {{ "Email" | transloco }}
+              <p-columnFilter
+                type="text"
+                field="email"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-student>
+        <tr class="px-2">
+          <td>
+            {{ student.firstName }} {{ student.secondName }}
+            {{ student.thirdName }} {{ student.fourthName }}
+          </td>
+          <td>
+            <a
+              [routerLink]="[
+                '/Admin/Students/student-details',
+                student.nationalID
+              ]"
+            >
+              {{ student.nationalID }}
+            </a>
+          </td>
+          <td>{{ student.phone }}</td>
+          <td>{{ student.birthDate | date : "mediumDate" }}</td>
+          <td>
+            <p-tag
+              [value]="
+                student.gender === 'M'
+                  ? ('genders.male' | transloco)
+                  : ('genders.female' | transloco)
+              "
+              [severity]="getSeverity(student.gender)"
+            />
+          </td>
+          <td>
+            <i
+              class="pi"
+              [ngClass]="{
+                'text-green-500 pi-check-circle': student.hasSpecialNeeds,
+                'text-red-500 pi-times-circle': !student.hasSpecialNeeds
+              }"
+            ></i>
+          </td>
+          <td>{{ student.email }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="Dancing">
+            {{ "NoStudentsFound" | transloco }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    }@placeholder {
+    <div class="text-center text-gray-500 Dancing">
+      {{ "LoadingStudents" | transloco }}
+    </div>
+    }
+  </div>
+</section>
+ -->

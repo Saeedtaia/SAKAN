@@ -16,6 +16,7 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@ngneat/transloco';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-students-list',
@@ -33,10 +34,11 @@ import { TranslocoPipe } from '@ngneat/transloco';
     IconField,
     InputIcon,
     TranslocoPipe,
+    CalendarModule,
   ],
+  providers: [PrimeNG],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.scss',
-  providers: [PrimeNG],
 })
 export class StudentsListComponent implements OnInit {
   students: Student[] = [];
@@ -49,14 +51,13 @@ export class StudentsListComponent implements OnInit {
   ];
 
   constructor(
-    private primengConfig: PrimeNG,
-    private translocoService: TranslocoService
+    public PrimeNG: PrimeNG,
+    public translocoService: TranslocoService
   ) {}
 
   ngOnInit(): void {
     this.setupTranslations();
 
-    // Simulate API call
     setTimeout(() => {
       this.students = [...FAKE_STUDENTS];
       this.loading = false;
@@ -64,19 +65,39 @@ export class StudentsListComponent implements OnInit {
   }
 
   private setupTranslations() {
-    // Initial load
     this.translocoService
       .selectTranslateObject('primeng')
       .subscribe((translations) => {
-        this.primengConfig.setTranslation(translations);
+        this.PrimeNG.setTranslation({
+          ...translations,
+          dayNames: translations['dayNames'],
+          dayNamesShort: translations['dayNamesShort'],
+          dayNamesMin: translations['dayNamesMin'],
+          monthNames: translations['monthNames'],
+          monthNamesShort: translations['monthNamesShort'],
+          today: translations['today'],
+          weekHeader: translations['weekHeader'],
+          firstDayOfWeek: parseInt(translations['firstDayOfWeek']),
+          dateFormat: translations['dateFormat'],
+        });
       });
 
-    // Language change listener
-    this.translocoService.langChanges$.subscribe((lang) => {
+    this.translocoService.langChanges$.subscribe(() => {
       this.translocoService
         .selectTranslateObject('primeng')
         .subscribe((translations) => {
-          this.primengConfig.setTranslation(translations);
+          this.PrimeNG.setTranslation({
+            ...translations,
+            dayNames: translations['dayNames'],
+            dayNamesShort: translations['dayNamesShort'],
+            dayNamesMin: translations['dayNamesMin'],
+            monthNames: translations['monthNames'],
+            monthNamesShort: translations['monthNamesShort'],
+            today: translations['today'],
+            weekHeader: translations['weekHeader'],
+            firstDayOfWeek: parseInt(translations['firstDayOfWeek']),
+            dateFormat: translations['dateFormat'],
+          });
         });
     });
   }
@@ -97,5 +118,8 @@ export class StudentsListComponent implements OnInit {
       default:
         return 'warn';
     }
+  }
+  getCurrentDate(): Date {
+    return new Date();
   }
 }
