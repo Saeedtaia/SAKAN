@@ -1,5 +1,5 @@
 <div
-  class="sidenav"
+  class="sidenav max-[430px]:text-xs text-lg"
   [ngClass]="isLeftSidebarCollapsed() ? 'sidenav-collapsed' : ''"
 >
   <div class="logo-container">
@@ -53,7 +53,9 @@
         }
       </a>
     </li>
-    } } @if(!isLeftSidebarCollapsed()){ @for (item of items; track $index) {
+    }
+    <div class="invisible"><app-langswitcher /></div>
+    } @if(!isLeftSidebarCollapsed()){ @for (item of items; track $index) {
     <li class="mt-2 sidenav-nav-item">
       @if(item.overlaybadge == 'true'){
       <a

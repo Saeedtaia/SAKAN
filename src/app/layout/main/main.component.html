@@ -5,8 +5,10 @@
       (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)"
     />
   </aside>
-  <app-content
-    [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
-    [screenWidth]="screenWidth()"
-  />
+  <main>
+    <app-content
+      [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
+      [screenWidth]="screenWidth()"
+    />
+  </main>
 </section>

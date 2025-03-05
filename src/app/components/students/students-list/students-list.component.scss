@@ -1,0 +1,15 @@
+/* students-list.component.scss */
+:host ::ng-deep {
+  .p-paginator {
+    direction: ltr !important;
+    text-align: left !important;
+
+    .p-paginator-pages,
+    .p-paginator-first,
+    .p-paginator-prev,
+    .p-paginator-next,
+    .p-paginator-last {
+      float: left;
+    }
+  }
+}
