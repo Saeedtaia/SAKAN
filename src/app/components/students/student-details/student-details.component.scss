@@ -1,0 +1,9 @@
+.p-inputtext {
+  border-color: #012a5b90 !important;
+}
+
+.p-inputtext:focus {
+  border: 0 !important;
+  box-shadow: 0 0 12px #012a5b !important; /* Adds a black glow effect around the input */
+  outline: 2px solid #012a5b51 !important; /* Adds a black outline */
+}

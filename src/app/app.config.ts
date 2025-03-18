@@ -16,29 +16,33 @@ import {
   HttpClientXsrfModule,
   withInterceptors,
   withInterceptorsFromDi,
+  withXsrfConfiguration,
 } from '@angular/common/http';
 import { errorHandlingInterceptor } from './shared/interceptors/error-handling.interceptor';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@ngneat/transloco';
 import { environment } from '../environments/environment';
-
+declare const MY_NONCE: string;
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom(
-      HttpClientXsrfModule.withOptions({
-        cookieName: 'XSRF-TOKEN',
-        headerName: 'X-XSRF-TOKEN',
-      })
-    ),
     {
       provide: CSP_NONCE,
-      useValue: (globalThis as any).myRandomNonceValue,
+      useValue: MY_NONCE, // Matches server's CSP header
     },
+    // {
+    //   provide: CSP_NONCE,
+    //   useValue: (globalThis as any).myRandomNonceValue,
+    // },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
     provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(
+      withXsrfConfiguration({
+        cookieName: 'XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN',
+      })
+    ),
     provideHttpClient(withInterceptors([errorHandlingInterceptor])),
     provideHttpClient(withInterceptorsFromDi()),
     providePrimeNG({

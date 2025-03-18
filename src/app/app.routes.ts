@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthComponent } from './layout/auth/auth.component';
 import { studentDetailsGuard } from './shared/guards/studentdetails.guard';
+import { sTDdetailsResolver } from './shared/resolvers/stddetails.resolver';
 
 export const routes: Routes = [
   {
@@ -70,6 +71,7 @@ export const routes: Routes = [
           },
           {
             canActivate: [studentDetailsGuard],
+            resolve: { StudentDetails: sTDdetailsResolver },
             path: 'student-details/:StudentId',
             loadComponent: () =>
               import(

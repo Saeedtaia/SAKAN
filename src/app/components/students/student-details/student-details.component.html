@@ -1,16 +1,98 @@
 <section>
-  <div class="grid grid-cols-4 rounded-md bg-slate-50 max-md:grid-cols-1">
+  <div class="flex items-center justify-between w-full px-4 mb-2 rounded-2xl">
+    <p-button
+      [label]="'edit' | transloco"
+      icon="pi pi-pen-to-square"
+      iconPos="right"
+      (onClick)="test()"
+      severity="info"
+    />
+    <p-button
+      [label]="'save' | transloco"
+      icon="pi pi-check"
+      iconPos="right"
+      (onClick)="test()"
+      severity="success"
+    />
+    <p-button
+      [label]="'delete' | transloco"
+      icon="pi pi-trash"
+      iconPos="right"
+      (onClick)="test()"
+      severity="danger"
+    />
+  </div>
+  <h3 class="text-center text-sky-600">Student Data</h3>
+  <div class="grid grid-cols-4 p-2 rounded-md bg-slate-100 max-md:grid-cols-1">
     <div class="grid items-center content-center grid-cols-1 col-span-1 p-2">
-      <div class="mx-auto overflow-hidden">
-        <div class="flex items-center content-center w-40 h-40 rounded-full">
+      <div class="w-full h-full mx-auto overflow-hidden">
+        <!-- <div class="flex items-center content-center w-40 h-40 rounded-full">
           <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg"
             size="xlarge"
-            shape="circle"
+            shape="square"
           ></p-avatar>
-        </div>
+        </div> -->
+        <img
+          src="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg"
+          class="w-full rounded-lg"
+          alt=""
+        />
       </div>
     </div>
-    <div class="h-48 col-span-3 p-5"></div>
+
+    <form
+      dir="rtl"
+      formGroup="studentdetailsform"
+      class="w-full grid grid-cols-4 col-span-3 gap-4 px-2 py-3 max-[430px]:grid-cols-1 xss:grid-cols-1 md:grid-cols-4"
+    >
+      @for (field of studentdetailsform | objtoarr; track $index) { @if(
+      !["studentID","oldStudentId","newStudentId","userID",
+      "guardianID"].includes(field)){
+      <p-floatlabel variant="on">
+        <input
+          class="w-full"
+          pInputText
+          [id]="field"
+          [disabled]="desabled"
+          [value]="studentdetailsform.get(field)?.value"
+          autocomplete="off"
+        />
+
+        <label [for]="field" class="bg-transparent text-sky-500">{{
+          "StudentDetails." + field | transloco
+        }}</label>
+      </p-floatlabel>
+      } }
+    </form>
+  </div>
+  <h3 class="text-center text-sky-600">
+    Student<span class="text-gray-600">'s</span> Guardian Data
+  </h3>
+  <div class="p-2 rounded-md bg-slate-100">
+    <form
+      dir="rtl"
+      formGroup="studentdetailsform"
+      class="w-full grid grid-cols-4 col-span-3 gap-4 px-2 py-3 max-[430px]:grid-cols-1 xss:grid-cols-1 md:grid-cols-4"
+    >
+      @for (field of guardianData | objtoarr; track $index) { @if(
+      !["guardianID"].includes(field)){
+      <p-floatlabel variant="on">
+        <input
+          class="w-full"
+          pInputText
+          [id]="field"
+          [disabled]="desabled"
+          [value]="guardianData.get(field)?.value"
+          autocomplete="off"
+        />
+        <!-- [value]="studentdetailsform.get(field)?.value | date : 'dd-MM-yyyy'" -->
+
+        <label [for]="field" class="bg-transparent text-sky-500">{{
+          "StudentDetails." + field | transloco
+        }}</label>
+      </p-floatlabel>
+      } }
+    </form>
   </div>
 </section>

@@ -1,11 +1,20 @@
 export interface Guardian {
-  guardianID: number; // PK (renamed from InvoiceID error)
+  guardianID: number;
   firstName: string;
   secondName: string;
   thirdName: string;
   fourthName: string;
-  job: string;
-  nationalID: number; // or string if preferred
+  countryId: number;
+  nationalID: string;
   phone: string;
-  guardianRelation: string;
+  telephone: string;
+  birthDate: Date;
+  gender: string;
+  religion: string;
+  placeOfBirth: string;
+  email: string;
+  addressLine: string;
+  isMarried: boolean;
+  occupation: string;
+  kinship: string;
 }
