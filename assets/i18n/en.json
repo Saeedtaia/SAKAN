@@ -49,6 +49,10 @@
  },
  "Clear": "Clear",
  "primeng": {
+  "genders": {
+   "male": "Male",
+   "female": "Female"
+  },
   "dayNames": [
    "Sunday",
    "Monday",
@@ -113,6 +117,10 @@
   "startsWith": "Starts with",
   "contains": "Contains",
   "notContains": "Not contains",
+  "genders": {
+   "male": "Male",
+   "female": "Female"
+  },
   "endsWith": "Ends with",
   "equals": "Equals",
   "notEquals": "Not equals",
