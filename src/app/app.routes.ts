@@ -41,6 +41,16 @@ export const routes: Routes = [
           import('./components/employees/employees.component').then(
             (m) => m.EmployeesComponent
           ),
+        //#region employees children
+        children: [
+          {
+            path: '',
+            redirectTo: 'employees-list',
+            pathMatch: 'full',
+          },
+          { path: 'employees-list', loadComponent: () => import('./components/employees/emp-list/emp-list.component').then(m => m.EmpListComponent) },
+        ],
+        //#endregion
       },
       {
         path: 'Settings',

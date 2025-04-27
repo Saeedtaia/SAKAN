@@ -112,6 +112,10 @@
   "startsWith": "يبدأ ب",
   "contains": "يحتوي على",
   "notContains": "لا يحتوي على",
+  "genders": {
+   "male": "Male",
+   "female": "Female"
+  },
   "endsWith": "ينتهي ب",
   "equals": "يساوي",
   "notEquals": "لا يساوي",

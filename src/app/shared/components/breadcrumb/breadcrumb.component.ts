@@ -1,8 +1,8 @@
-import { MatButtonModule } from '@angular/material/button';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MatButtonModule } from '@angular/material/button';
 import { Breadcrumb } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
 import { filter } from 'rxjs';
 import { FAKE_STUDENTS } from '../../samples/student/mock-students';
 import { Student } from '../../../shared/data/student/student';
@@ -26,7 +26,7 @@ export class BreadcrumbMenuComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private translocoService: TranslocoService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.students = [...FAKE_STUDENTS];
@@ -46,19 +46,14 @@ export class BreadcrumbMenuComponent implements OnInit {
   }
 
   private updateBreadcrumb() {
-    this.menuitem = [
-      {
-        label: this.currentLang === 'ar' ? 'الطلاب' : 'Students',
-        routerLink: '/Admin/Students/',
-      },
-    ];
+    this.menuitem = []; // start empty
 
     let currentRoute = this.activatedRoute.root;
-    let url = '/Admin/';
-    let studentId: string | null;
+    let url = '';
 
     while (currentRoute.firstChild) {
       currentRoute = currentRoute.firstChild;
+
       if (currentRoute.snapshot.url.length) {
         const pathSegment = currentRoute.snapshot.url[0].path;
 
@@ -70,39 +65,31 @@ export class BreadcrumbMenuComponent implements OnInit {
         let label = this.getLabel(pathSegment);
 
         if (pathSegment === 'student-details') {
-          studentId = currentRoute.snapshot.paramMap.get('StudentId');
-          this.filterdStudent = this.students.find(
-            (student) => student.nationalID.toString() === studentId
-          );
+          const studentId = currentRoute.snapshot.paramMap.get('StudentId');
+          if (studentId) {
+            this.filterdStudent = this.students.find(
+              (student) => student.nationalID.toString() === studentId
+            );
 
-          if (studentId && this.filterdStudent) {
-            const nameParts =
-              this.currentLang === 'ar'
-                ? [
-                    this.filterdStudent.firstName,
-                    this.filterdStudent.secondName,
-                    this.filterdStudent.thirdName,
-                    this.filterdStudent.fourthName,
-                  ]
-                : [
-                    this.filterdStudent.firstName,
-                    this.filterdStudent.secondName,
-                    this.filterdStudent.thirdName,
-                    this.filterdStudent.fourthName,
-                  ];
+            if (this.filterdStudent) {
+              const nameParts = [
+                this.filterdStudent.firstName,
+                this.filterdStudent.secondName,
+                this.filterdStudent.thirdName,
+                this.filterdStudent.fourthName,
+              ];
 
-            label = `${this.getLabel('student-details')} - ${nameParts.join(
-              ' '
-            )}`;
-            url += `/${studentId}`;
+              label = `${this.getLabel('student-details')} - ${nameParts.join(' ')}`;
+              url += `/${studentId}`;
+            }
           }
         }
 
         if (label !== 'Unknown' && label !== 'غير معروف') {
-          const isLastItem = !currentRoute.firstChild;
+          const isLast = !currentRoute.firstChild;
           this.menuitem.push({
             label,
-            routerLink: isLastItem ? url : null,
+            routerLink: isLast ? url : null,
           });
         }
       }
@@ -111,6 +98,11 @@ export class BreadcrumbMenuComponent implements OnInit {
 
   private getLabel(route: string): string {
     const labels: { [key: string]: { en: string; ar: string } } = {
+      Home: { en: 'Home', ar: 'الرئيسية' },
+      Dormitories: { en: 'Dormitories', ar: 'السكنات' },
+      Employees: { en: 'Employees', ar: 'الموظفين' },
+      'employees-list': { en: 'Employees List', ar: 'قائمة الموظفين' },
+      Students: { en: 'Students', ar: 'الطلاب' },
       'students-list': { en: 'Students List', ar: 'قائمة الطلاب' },
       'students-Applications': { en: 'Applications', ar: 'الطلبات' },
       'students-Data': { en: 'Student Data', ar: 'بيانات الطالب' },
@@ -118,6 +110,7 @@ export class BreadcrumbMenuComponent implements OnInit {
       'students-Messages': { en: 'Messages', ar: 'الرسائل' },
       'student-details': { en: 'Student Details', ar: 'تفاصيل الطالب' },
       Events: { en: 'Events', ar: 'الفعاليات' },
+      Settings: { en: 'Settings', ar: 'الإعدادات' },
     };
 
     const translation = labels[route];
@@ -128,7 +121,7 @@ export class BreadcrumbMenuComponent implements OnInit {
   }
 
   private isValidSegment(segment: string): boolean {
-    const ignoredSegments = ['Admin_Student_hotel', 'Admin'];
+    const ignoredSegments = ['Admin', 'Auth'];
     return !ignoredSegments.includes(segment);
   }
 }
