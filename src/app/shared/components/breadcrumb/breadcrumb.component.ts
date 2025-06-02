@@ -46,7 +46,7 @@ export class BreadcrumbMenuComponent implements OnInit {
   }
 
   private updateBreadcrumb() {
-    this.menuitem = []; // start empty
+    this.menuitem = [];
 
     let currentRoute = this.activatedRoute.root;
     let url = '';
@@ -64,6 +64,7 @@ export class BreadcrumbMenuComponent implements OnInit {
         url += `/${pathSegment}`;
         let label = this.getLabel(pathSegment);
 
+        // ✅ Handle student-details
         if (pathSegment === 'student-details') {
           const studentId = currentRoute.snapshot.paramMap.get('StudentId');
           if (studentId) {
@@ -78,10 +79,18 @@ export class BreadcrumbMenuComponent implements OnInit {
                 this.filterdStudent.thirdName,
                 this.filterdStudent.fourthName,
               ];
-
               label = `${this.getLabel('student-details')} - ${nameParts.join(' ')}`;
               url += `/${studentId}`;
             }
+          }
+        }
+
+        // ✅ Handle build-details by ID
+        if (pathSegment === 'build-details') {
+          const buildId = currentRoute.snapshot.paramMap.get('buildId');
+          if (buildId) {
+            label = `${this.getLabel('build-details')} - ${buildId}`;
+            url += `/${buildId}`;
           }
         }
 
@@ -98,6 +107,10 @@ export class BreadcrumbMenuComponent implements OnInit {
 
   private getLabel(route: string): string {
     const labels: { [key: string]: { en: string; ar: string } } = {
+      'build-details': { en: 'Building Details Number', ar: 'تفاصيل المبنى رقم' },
+      Auth: { en: 'Auth', ar: 'المصادقة' },
+      'Auth-Login': { en: 'Login', ar: 'تسجيل الدخول' },
+      'build-list': { en: 'Dormitory List', ar: 'قائمة السكنات' },
       Home: { en: 'Home', ar: 'الرئيسية' },
       Dormitories: { en: 'Dormitories', ar: 'السكنات' },
       Employees: { en: 'Employees', ar: 'الموظفين' },

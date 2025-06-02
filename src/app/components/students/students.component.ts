@@ -5,29 +5,24 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { BreadcrumbMenuComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { LoaderService } from '../../shared/services/loader-service.service';
+import { ThreedotdropdowenComponent } from "../../shared/components/threedotdropdowen/threedotdropdowen.component";
 
 @Component({
   selector: 'app-students',
   standalone: true,
   imports: [
     RouterOutlet,
-    RouterLinkActive,
-    RouterLink,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    BreadcrumbMenuComponent,
+    ThreedotdropdowenComponent
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss',
 })
 export class StudentsComponent implements OnInit {
-  isMenuOpen = false;
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-  constructor(private loader: LoaderService) {}
+  constructor(private loader: LoaderService) { }
   ngOnInit(): void {
     // this.loader.show();
   }

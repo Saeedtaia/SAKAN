@@ -8,10 +8,12 @@
       (click)="toggleMenu()"
       aria-label="Menu"
     >
-      <span class="text-3xl font-extrabold text-[#44474E]">⋮</span>
+      <span class="text-3xl font-extrabold text-[#44474E]"
+        ><mat-icon>more_vert</mat-icon>
+      </span>
     </button>
     <!-- Custom dropdown menu -->
-    @if (isMenuOpen && items) {
+    @if (isMenuOpen && items.length > 0) {
     <div
       class="absolute z-50 w-56 mt-1 origin-top-left bg-white rounded shadow-xl ltr:left-0 rtl:right-0 ring-1 ring-black ring-opacity-5 focus:outline-none"
     >

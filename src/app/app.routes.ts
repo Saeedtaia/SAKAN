@@ -34,6 +34,25 @@ export const routes: Routes = [
           import('./components/dormitories/dormitories.component').then(
             (m) => m.DormitoriesComponent
           ),
+        //#region dormitories children
+        children: [
+          {
+            path: '',
+            redirectTo: 'build-list',
+            pathMatch: 'full',
+          },
+          {
+            path: "build-list",
+            loadComponent: () => import('./components/dormitories/list/list.component').then(
+              (m) => m.ListComponent)
+          },
+          {
+            path: "build-details/:buildId",
+            loadComponent: () => import('./components/dormitories/details/details.component').then(
+              (m) => m.DetailsComponent)
+          }
+        ]
+        //#endregion
       },
       {
         path: 'Employees',

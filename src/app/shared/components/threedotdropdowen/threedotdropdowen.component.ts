@@ -3,13 +3,14 @@ import { BreadcrumbMenuComponent } from "../breadcrumb/breadcrumb.component";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { LoaderService } from '../../services/loader-service.service';
 
 @Component({
   selector: 'app-threedotdropdowen',
   standalone: true,
   imports: [
+    MatIcon,
     RouterLinkActive,
     RouterLink,
     MatButtonModule,

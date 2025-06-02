@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThreedotdropdowenComponent } from "../../shared/components/threedotdropdowen/threedotdropdowen.component";
+import { Item, ThreedotdropdowenComponent } from "../../shared/components/threedotdropdowen/threedotdropdowen.component";
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -10,5 +10,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './dormitories.component.scss'
 })
 export class DormitoriesComponent {
-
+  items: Item[] = [
+    {
+      routeLink: 'build-list',
+      icon: 'location_city',
+      label: 'Build List',
+    },
+  ]
 }

@@ -1,0 +1,54 @@
+<section class="mx-3">
+  <div
+    class="p-6 mx-auto mt-10 bg-white shadow-2xl rounded-2xl animate-fade-in"
+  >
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-3xl font-bold text-indigo-700">🏢 {{ details.name }}</h2>
+      <span
+        class="px-4 py-1 text-sm font-semibold text-indigo-600 bg-indigo-100 rounded-full"
+      >
+        نوع: {{ details.type }}
+      </span>
+    </div>
+
+    <p class="mb-4 text-lg text-gray-700">
+      {{ details.description }}
+    </p>
+
+    <div
+      class="flex flex-col mb-6 md:flex-row md:items-center md:justify-between"
+    >
+      <div class="mb-4 md:mb-0">
+        <h4 class="font-semibold text-gray-600 text-md">📍 العنوان:</h4>
+        <p class="text-gray-800">{{ details.address }}</p>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-gray-600 text-md">🏘️ القرية:</h4>
+        <p class="text-gray-800">{{ details.villageName }}</p>
+      </div>
+    </div>
+
+    <div
+      class="mt-6 overflow-hidden border border-gray-200 shadow-lg rounded-xl"
+    >
+      <div class="w-full h-[400px]">
+        <!-- mapSearchText contains full iframe -->
+        <!-- {{ details.mapSearchText | removeBackslashes }} -->
+
+        <!-- <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4088.91935646136!2d31.193337079962124!3d30.482627870062302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7df15096a3a8f%3A0x16bd0917e5a603a1!2sUniversity%20City!5e0!3m2!1sen!2seg!4v1746332284800!5m2!1sen!2seg"
+          class="w-full h-full"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe> -->
+        <div
+          [innerHTML]="details.mapSearchText | removeBackslashes"
+          class="w-full h-full"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>
