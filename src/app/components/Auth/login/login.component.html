@@ -1,0 +1,62 @@
+<div
+  class="grid min-h-screen col-span-6 bg-gradient-to-br from-blue-800 to-indigo-700"
+>
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="signIn()"
+    class="flex flex-col justify-around w-full max-w-md col-span-4 col-start-2 p-8 border shadow-xl backdrop-blur-md bg-white/10 border-white/20 rounded-2xl"
+  >
+    <h1 class="text-sky-700">Benha Students Hotels</h1>
+    <div class="">
+      <h2 class="mb-6 text-3xl font-bold text-center text-indigo-700">Login</h2>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-sky-700">Username</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="UserName"
+          placeholder="Enter your username"
+          class="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+        />
+        <div
+          *ngIf="
+            loginForm.get('UserName')?.invalid &&
+            loginForm.get('UserName')?.touched
+          "
+          class="text-sm text-red-600"
+        >
+          Username is required
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-sky-700">Password</label>
+        <p-password
+          formControlName="Password"
+          [feedback]="false"
+          [toggleMask]="true"
+          inputStyleClass="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring focus:ring-indigo-500"
+          placeholder="Enter your password"
+        ></p-password>
+        <div
+          *ngIf="
+            loginForm.get('Password')?.invalid &&
+            loginForm.get('Password')?.touched
+          "
+          class="text-sm text-red-600"
+        >
+          Password is required
+        </div>
+      </div>
+
+      <button
+        pButton
+        label="Login"
+        type="submit"
+        [disabled]="loginForm.invalid || loading"
+        class="w-full px-4 py-2 font-semibold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-700"
+      ></button>
+    </div>
+  </form>
+</div>

@@ -1,19 +1,118 @@
 <section class="mx-3">
+  <button
+    (click)="showDialog()"
+    class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden text-black transition-all duration-300 shadow-lg cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl hover:shadow-xl group hover:from-purple-600 hover:to-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-300"
+  >
+    <span
+      class="absolute inset-0 w-full h-full transition duration-300 ease-out transform translate-x-full bg-white group-hover:translate-x-0 opacity-10"
+    ></span>
+
+    <svg
+      class="w-5 h-5 mr-2 transition-transform duration-300 transform group-hover:rotate-90"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+    </svg>
+
+    <span class="relative z-10 text-sm font-semibold tracking-wide uppercase">
+      Create
+    </span>
+  </button>
+  <!-- buildings -->
   <h3 class="text-center">Normal Builds - السكن الطلابي العادي</h3>
   <div
     class="grid grid-cols-3 lg:grid-cols-4 max-[430px]:grid-cols-1 xss:grid-cols-1 md:grid-cols-2 gap-y-0 gap-x-3"
   >
     @for (build of normalBuildings; track $index) {
     <div
-      [routerLink]="['/Admin/Dormitories/build-details', build.buildingId]"
-      class="p-2 rounded-lg cursor-pointer card maincolor hover:shadow-lg hover:shadow-gray-500/50"
+      class="p-2 rounded-lg card maincolor hover:shadow-lg hover:shadow-gray-500/50"
     >
-      <div class="card-header">
-        <h5 class="text-center maintext">{{ build.name }}</h5>
-        <img src="../assets/images/build.png" class="w-full" alt="" />
-      </div>
-      <div class="card-body">
-        <p>ADD: {{ build.address }}</p>
+      <div
+        class="flex flex-col justify-between h-full overflow-hidden border rounded-lg shadow-md"
+      >
+        <div>
+          <div class="px-4 py-2 card-header">
+            <h5 class="text-lg font-semibold text-center maintext">
+              {{ build.name }}
+            </h5>
+            <img
+              src="../assets/images/build.png"
+              class="object-cover w-full mt-2 rounded-md"
+              alt="Building image"
+            />
+          </div>
+          <div class="px-4 py-2 card-body">
+            <p>ADD: {{ build.address }}</p>
+          </div>
+        </div>
+        <div class="grid w-full grid-cols-1 gap-2 px-4 pb-4">
+          <button
+            class="relative inline-flex items-center gap-2 px-6 py-3 text-white transition-all duration-300 ease-in-out shadow-lg group bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 rounded-xl hover:from-purple-600 hover:to-red-600 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-400 animate-pulse"
+          >
+            <!-- Icon (you can replace with any Heroicons / Lucide / FontAwesome icon) -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-125"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18.364 5.636A9 9 0 015.636 18.364M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+
+            <span class="text-base font-semibold tracking-wide">Issues</span>
+          </button>
+
+          <button
+            (click)="confirmDelete(build.buildingId)"
+            class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-semibold text-white transition-transform duration-300 ease-in-out bg-red-600 rounded-full shadow-lg cursor-pointer group hover:scale-110 hover:-rotate-1 hover:bg-red-700 hover:shadow-red-500/50 focus:outline-none"
+          >
+            <span
+              class="absolute inset-0 w-full h-full transition duration-300 ease-out scale-125 bg-red-500 opacity-0 group-hover:opacity-100 blur-sm"
+            ></span>
+            <span class="relative z-10 flex items-center space-x-2">
+              <i class="text-white pi pi-trash"></i>
+              <span>Delete</span>
+            </span>
+          </button>
+
+          <button
+            [routerLink]="[
+              '/Admin/Dormitories/build-details',
+              build.buildingId
+            ]"
+            type="button"
+            class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-semibold text-white transition-all duration-300 ease-out shadow-lg cursor-pointer group bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl hover:shadow-xl hover:from-indigo-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 active:scale-95"
+            aria-label="View Details"
+          >
+            <span
+              class="absolute inset-0 w-full h-full transition duration-500 ease-in-out transform scale-105 opacity-0 bg-gradient-to-br from-blue-400 to-indigo-600 group-hover:opacity-20"
+            ></span>
+            <svg
+              class="w-5 h-5 mr-2 text-white transition-transform duration-300 group-hover:translate-x-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4h-6"
+              />
+            </svg>
+            View Details
+          </button>
+        </div>
       </div>
     </div>
     }
@@ -25,17 +124,184 @@
   >
     @for (build of hotelBuildings; track $index) {
     <div
-      [routerLink]="['/Admin/Dormitories/build-details', build.buildingId]"
-      class="p-2 rounded-lg cursor-pointer card maincolor hover:shadow-lg hover:shadow-gray-500/50"
+      class="p-2 rounded-lg card maincolor hover:shadow-lg hover:shadow-gray-500/50"
     >
-      <div class="card-header">
-        <h5 class="text-center maintext">{{ build.name }}</h5>
-        <img src="../assets/images/build.png" class="w-full" alt="" />
-      </div>
-      <div class="card-body">
-        <p>ADD: {{ build.address }}</p>
+      <div
+        class="flex flex-col justify-between h-full overflow-hidden border rounded-lg shadow-md"
+      >
+        <div>
+          <div class="px-4 py-2 card-header">
+            <h5 class="text-lg font-semibold text-center maintext">
+              {{ build.name }}
+            </h5>
+            <img
+              src="../assets/images/build.png"
+              class="object-cover w-full mt-2 rounded-md"
+              alt="Building image"
+            />
+          </div>
+          <div class="px-4 py-2 card-body">
+            <p>ADD: {{ build.address }}</p>
+          </div>
+        </div>
+        <div class="grid w-full grid-cols-1 gap-2 px-4 pb-4">
+          <button
+            (click)="confirmDelete(build.buildingId)"
+            class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-semibold text-white transition-transform duration-300 ease-in-out bg-red-600 rounded-full shadow-lg cursor-pointer group hover:scale-110 hover:-rotate-1 hover:bg-red-700 hover:shadow-red-500/50 focus:outline-none"
+          >
+            <span
+              class="absolute inset-0 w-full h-full transition duration-300 ease-out scale-125 bg-red-500 opacity-0 group-hover:opacity-100 blur-sm"
+            ></span>
+            <span class="relative z-10 flex items-center space-x-2">
+              <i class="text-white pi pi-trash"></i>
+              <span>Delete</span>
+            </span>
+          </button>
+
+          <button
+            [routerLink]="[
+              '/Admin/Dormitories/build-details',
+              build.buildingId
+            ]"
+            type="button"
+            class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-semibold text-white transition-all duration-300 ease-out shadow-lg cursor-pointer group bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl hover:shadow-xl hover:from-indigo-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 active:scale-95"
+            aria-label="View Details"
+          >
+            <span
+              class="absolute inset-0 w-full h-full transition duration-500 ease-in-out transform scale-105 opacity-0 bg-gradient-to-br from-blue-400 to-indigo-600 group-hover:opacity-20"
+            ></span>
+            <svg
+              class="w-5 h-5 mr-2 text-white transition-transform duration-300 group-hover:translate-x-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4h-6"
+              />
+            </svg>
+            View Details
+          </button>
+        </div>
       </div>
     </div>
     }
   </div>
 </section>
+
+<!-- dialog -->
+
+<div class="flex justify-center card">
+  <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="max-w-3xl p-8 mx-auto space-y-6 bg-white shadow-2xl rounded-3xl"
+    >
+      @for (field of [ { name: 'Name', label: 'Name', type: 'text' }, { name:
+      'Description', label: 'Description', type: 'text' }, { name:
+      'AddressInDetails', label: 'Address In Details', type: 'text' }, { name:
+      'MapSearchText', label: 'Map Search Text', type: 'text' }, { name: 'Type',
+      label: 'Type (Integer) only 0 or 1 ', type: 'number' }, { name:
+      'VillageId', label: 'Village ID (Integer)', type: 'number' } ]; track
+      $index) {
+      <div class="space-y-2">
+        <label [for]="field.name" class="block text-sm font-bold text-gray-700">
+          {{ field.label }}
+        </label>
+
+        <input
+          [type]="field.type"
+          [id]="field.name"
+          [formControlName]="field.name"
+          class="w-full px-4 py-3 transition duration-300 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{
+            'border-red-500':
+              f[field.name].invalid &&
+              (f[field.name].dirty || f[field.name].touched)
+          }"
+        />
+
+        <div
+          *ngIf="
+            f[field.name].invalid &&
+            (f[field.name].dirty || f[field.name].touched)
+          "
+          class="text-sm text-red-500"
+        >
+          {{ field.label }} is required.
+        </div>
+      </div>
+      }
+
+      <!-- <div class="flex justify-end gap-4 mt-8">
+        <button
+          type="button"
+          class="px-6 py-3 font-semibold text-gray-800 transition duration-300 bg-gray-300 hover:bg-gray-400 rounded-xl"
+          (click)="form.reset()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="px-6 py-3 font-semibold text-white transition duration-300 shadow-md rounded-xl hover:shadow-lg"
+          style="background-color: #012a5b"
+        >
+          Save
+        </button>
+      </div> -->
+    </form>
+    <ng-template #footer>
+      <button
+        (click)="visible = false"
+        (click)="form.reset()"
+        class="inline-flex items-center justify-center px-6 py-3 text-gray-700 transition duration-200 ease-in-out bg-gray-200 shadow-sm cursor-pointer hover:bg-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-400"
+      >
+        <svg
+          class="w-5 h-5 mr-2 text-gray-600 transition-transform duration-300 transform group-hover:scale-110"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide uppercase"
+          >Cancel</span
+        >
+      </button>
+      <button
+        (click)="visible = false"
+        (click)="onSubmit()"
+        type="submit"
+        class="relative inline-flex items-center justify-center px-6 py-3 text-white transition duration-300 ease-in-out shadow-md cursor-pointer rounded-xl hover:shadow-lg group focus:outline-none focus:ring-4 focus:ring-blue-300"
+        style="background-color: #012a5b"
+      >
+        <svg
+          class="w-5 h-5 mr-2 transition-transform duration-300 transform group-hover:scale-110"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide uppercase">Save</span>
+      </button>
+    </ng-template>
+  </p-dialog>
+</div>
+<!-- End of dialog -->

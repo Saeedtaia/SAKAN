@@ -19,12 +19,21 @@ import {
   withXsrfConfiguration,
 } from '@angular/common/http';
 import { errorHandlingInterceptor } from './shared/interceptors/error-handling.interceptor';
+import { TokenInterceptor } from './shared/interceptors/acssestoken.service';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@ngneat/transloco';
 import { environment } from '../environments/environment';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 declare const MY_NONCE: string;
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
     {
       provide: CSP_NONCE,
       useValue: MY_NONCE, // Matches server's CSP header
@@ -34,6 +43,8 @@ export const appConfig: ApplicationConfig = {
     //   useValue: (globalThis as any).myRandomNonceValue,
     // },
     provideZoneChangeDetection({ eventCoalescing: true }),
+    importProvidersFrom(ToastModule),
+    MessageService,
     provideRouter(routes),
     provideAnimationsAsync(),
     provideAnimations(),
@@ -44,6 +55,10 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideHttpClient(withInterceptors([errorHandlingInterceptor])),
+    provideHttpClient(
+      withInterceptors([errorHandlingInterceptor]),
+      withInterceptorsFromDi()
+    ),
     provideHttpClient(withInterceptorsFromDi()),
     providePrimeNG({
       theme: {

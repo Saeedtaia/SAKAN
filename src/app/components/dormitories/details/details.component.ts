@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BuildDetailsService } from '../../../shared/services/buildings/build-details.service';
 import { RemoveBackslashesPipe } from '../../../shared/pipes/remove-backslashes.pipe';
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-details',
@@ -13,23 +14,35 @@ import { RemoveBackslashesPipe } from '../../../shared/pipes/remove-backslashes.
 export class DetailsComponent implements OnInit {
   buildingId!: number;
   details!: Detailsbuilding;
-  constructor(private route: ActivatedRoute, private builddetails: BuildDetailsService) { }
+  loading: boolean = true;
+  safeMapHtml: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private builddetails: BuildDetailsService,
+    private sanitizer: DomSanitizer
+  ) { }
+
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.buildingId = +this.route.snapshot.paramMap.get('buildId')!;
     this.builddetails.getBuildDetailsById(this.buildingId).subscribe(
       (data) => {
-        this.details = data.data; // Store the details for use in the template
+        this.details = data.data;
+        this.loading = false; // Stop loading once data is fetched
+        if (this.details) {
+          this.safeMapHtml = this.sanitizer.bypassSecurityTrustHtml(
+            this.details.mapSearchText.replace(/\\/g, '')
+          );
+        }
       },
-      (error) => { console.error('Error fetching building details:', error); }
+      (error) => {
+        console.error('Error fetching building details:', error);
+        this.loading = false;
+      }
     );
-
-    // You can now use this.buildingId to fetch data, etc.
-    console.log('Building ID:', this.buildingId);
   }
-
 }
+
 export interface Detailsbuilding {
   buildingId: number
   name: string
@@ -39,3 +52,5 @@ export interface Detailsbuilding {
   type: string
   villageName: string
 }
+
+

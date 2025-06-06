@@ -31,37 +31,37 @@ export class SidebarComponent {
     label: string;
     overlaybadge: string;
   }[] = [
-    {
-      routeLink: 'Home',
-      icon: 'fal fa-home',
-      label: 'Dashboard',
-      overlaybadge: 'false',
-    },
-    {
-      routeLink: 'Students',
-      icon: 'fal fa-users',
-      label: 'Students',
-      overlaybadge: 'true',
-    },
-    {
-      routeLink: 'Employees',
-      icon: 'fal fa-user-tie',
-      label: 'Employees',
-      overlaybadge: 'true',
-    },
-    {
-      routeLink: 'Dormitories',
-      icon: 'fal fa-door-open',
-      label: 'Dormitories',
-      overlaybadge: 'false',
-    },
-    {
-      routeLink: 'Settings',
-      icon: 'fal fa-cog',
-      label: 'Settings',
-      overlaybadge: 'false',
-    },
-  ];
+      {
+        routeLink: 'Home',
+        icon: 'fal fa-home',
+        label: 'Dashboard',
+        overlaybadge: 'false',
+      },
+      {
+        routeLink: 'Students',
+        icon: 'fal fa-users',
+        label: 'Students',
+        overlaybadge: 'true',
+      },
+      {
+        routeLink: 'Employees',
+        icon: 'fal fa-user-tie',
+        label: 'Employees',
+        overlaybadge: 'true',
+      },
+      {
+        routeLink: 'Dormitories',
+        icon: 'fal fa-door-open',
+        label: 'Dormitories',
+        overlaybadge: 'false',
+      },
+      {
+        routeLink: 'Settings',
+        icon: 'fal fa-cog',
+        label: 'Settings',
+        overlaybadge: 'false',
+      },
+    ];
 
   toggleCollapse(): void {
     this.changeIsLeftSidebarCollapsed.emit(!this.isLeftSidebarCollapsed());

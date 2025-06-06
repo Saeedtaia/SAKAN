@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthComponent } from './layout/auth/auth.component';
 import { studentDetailsGuard } from './shared/guards/studentdetails.guard';
 import { sTDdetailsResolver } from './shared/resolvers/stddetails.resolver';
+import { adminGuard } from './shared/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -12,7 +13,7 @@ export const routes: Routes = [
   //main layout
   {
     path: 'Admin',
-    // canActivate: [],
+    canActivate: [adminGuard],
     loadComponent: () =>
       import('./layout/main/main.component').then((m) => m.MainComponent),
     children: [
@@ -140,6 +141,10 @@ export const routes: Routes = [
     path: 'Auth',
     loadComponent: () =>
       import('./layout/auth/auth.component').then((m) => m.AuthComponent),
+    children: [
+      { path: "", redirectTo: "Sign-In", pathMatch: "full" },
+      { path: "Sign-In", loadComponent: () => import("./components/Auth/login/login.component").then(m => m.LoginComponent) },
+    ]
   },
   {
     path: '**',
