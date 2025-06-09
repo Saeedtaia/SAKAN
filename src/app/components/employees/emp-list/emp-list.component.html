@@ -76,13 +76,11 @@
     </h2>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-      @defer (when employees) {
+      @defer (when employees) { @for (emp of employees; track $index) {
       <div
-        *ngFor="let emp of employees"
-        #complexDiv
         class="flex flex-col justify-between overflow-hidden transition duration-300 ease-in-out bg-white border border-gray-200 shadow-lg rounded-2xl hover:shadow-sky-900 hover:shadow-2xl"
       >
-        <div class="p-6 space-y-2" #complexDiv>
+        <div #complexDiv class="p-6 space-y-2">
           <div class="flex items-center space-x-3">
             <span
               class="px-3 py-1 text-sm font-semibold text-indigo-700 bg-indigo-100 rounded-full"
@@ -108,7 +106,7 @@
             <i class="mr-2 text-blue-500 pi pi-phone"></i>{{ emp.phoneNumber }}
           </p>
         </div>
-        <div class="p-6 space-y-2">
+        <div #complexDiv class="p-6 space-y-2">
           <div class="flex flex-col justify-between w-full pt-3">
             <button
               (click)="deleteEmployee(emp.employeeId)"
@@ -133,7 +131,7 @@
           </div>
         </div>
       </div>
-      }
+      } }
     </div>
   </div>
 </section>

@@ -1,6 +1,6 @@
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from './../../../shared/services/toaster/toast.service';
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { EmployeesService } from '../../../shared/services/EMP/employees.service';
 import { Employee } from '../../../shared/interfaces/employee';
 import { ButtonModule } from 'primeng/button';
@@ -13,6 +13,7 @@ import { Dialog } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { complexAnimationSequence } from '../../../shared/animation/complix';
+
 @Component({
   selector: 'app-emp-list',
   standalone: true,
@@ -20,12 +21,19 @@ import { complexAnimationSequence } from '../../../shared/animation/complix';
   templateUrl: './emp-list.component.html',
   styleUrl: './emp-list.component.scss'
 })
-export class EmpListComponent implements OnInit {
+export class EmpListComponent implements OnInit, AfterViewInit {
   @ViewChildren('complexDiv') complexDiv!: QueryList<ElementRef>;
+
   visible: boolean = false;
   form: FormGroup;
   employees: Employee[] = [];
-  constructor(private EmpService: EmployeesService, private ToastService: ToastService, private fb: FormBuilder, private Router: Router) {
+
+  constructor(
+    private EmpService: EmployeesService,
+    private ToastService: ToastService,
+    private fb: FormBuilder,
+    private Router: Router
+  ) {
     this.form = this.fb.group({
       FirstName: ['', Validators.required],
       SecondName: ['', Validators.required],
@@ -36,6 +44,7 @@ export class EmpListComponent implements OnInit {
       PhoneNumber: ['', Validators.required],
     });
   }
+
   fields = [
     { name: 'FirstName', label: 'First Name', type: 'text' },
     { name: 'SecondName', label: 'Second Name', type: 'text' },
@@ -45,14 +54,29 @@ export class EmpListComponent implements OnInit {
     { name: 'Email', label: 'Email', type: 'email' },
     { name: 'PhoneNumber', label: 'Phone Number', type: 'text' },
   ];
+
   ngOnInit(): void {
     this.EmpService.GetAllEmployees(1, 10, '').subscribe({
       next: (res) => {
         this.ToastService.success('Employees', 'Employees loaded successfully');
         this.employees = res.data;
-        complexAnimationSequence(this.complexDiv, 0.9);
+
+        // Wait for DOM to update before running animation
+        setTimeout(() => {
+          complexAnimationSequence(this.complexDiv, 0.2);
+        }, 0);
       }
-    })
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.complexDiv.changes.subscribe(() => {
+      complexAnimationSequence(this.complexDiv, 0.9);
+    });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   deleteEmployee(id: number) {
@@ -66,18 +90,12 @@ export class EmpListComponent implements OnInit {
       }
     });
   }
-  get f() {
-    return this.form.controls;
-  }
-
 
   GetEmployeeDetails(id: number) {
     this.EmpService.GetEmployeeById(id).subscribe({
       next: (res) => {
         this.ToastService.success('Employees', 'Employee details loaded successfully');
         console.log('Employee details:', res);
-
-        // Handle the logemployee details as needed
       },
       error: (err) => {
         this.ToastService.error('Employees', 'Failed to load employee details');
@@ -92,18 +110,15 @@ export class EmpListComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Form Submitted:', this.form.value);
-
-      const formData = new (FormData);
+      const formData = new FormData();
       for (const key in this.form.value) {
         formData.append(key, this.form.value[key]);
       }
 
       this.EmpService.AddEmployee(formData).subscribe({
         next: (res) => {
-          console.log('Employee created successfully:', res);
-          this.visible = false;
           this.ToastService.success('Employees', res.message);
+          this.visible = false;
           this.employees.push(res.data);
           this.form.reset();
         },
@@ -117,18 +132,11 @@ export class EmpListComponent implements OnInit {
     }
   }
 
-
-  //#endregion
-  //#region confirmation dialog
   confirmDelete(item: any) {
     this.EmpService.DeleteEmployee(item).subscribe({
       next: (res) => {
-        console.log('Building deleted successfully:', res);
         this.employees = this.employees.filter(b => b.employeeId !== item);
       }
-    })
+    });
   }
-  //#endregion
-
-
 }

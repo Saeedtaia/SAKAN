@@ -2,31 +2,7 @@
   <div
     class="grid w-full max-[430px]:text-xs grid-cols-3 gap-5 lg:grid-cols-3 max-[430px]:grid-cols-1 xss:grid-cols-1 md:grid-cols-2"
   >
-    @defer () { @for(item of TotalStudents; track $index){
-    <div
-      #complexDiv
-      class="p-5 my-0 border rounded-md shadow-md border-sky-200 card"
-    >
-      <div class="flex flex-row-reverse items-center justify-between">
-        <div
-          class="flex items-center justify-center h-12 rounded-full shadow-md text-9xl text-sky-100 bg-sky-400 icon-container w-14"
-        >
-          <i [class]="item.icon"></i>
-        </div>
-        <div class="grid w-full grid-cols-1">
-          <h2 class="mb-3 text-xl font-semibold tracking-tight">
-            {{ item.lable | transloco }}
-          </h2>
-          <p>
-            <span class="text-blue-950" #counterElement>{{ item.value }}</span>
-            <span class="text-lg text-sky-400">
-              {{ item.coin | transloco }}
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
-    } @for(item of TotalStudents; track $index){
+    @defer (when TotalStudents) { @for(item of TotalStudents; track $index){
     <div
       #complexDiv
       class="p-5 border rounded-md shadow-md border-sky-200 card"
