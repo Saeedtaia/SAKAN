@@ -25,7 +25,7 @@ export class BreadcrumbMenuComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
   ) { }
 
   ngOnInit(): void {
@@ -57,14 +57,12 @@ export class BreadcrumbMenuComponent implements OnInit {
       if (currentRoute.snapshot.url.length) {
         const pathSegment = currentRoute.snapshot.url[0].path;
 
-        if (!this.isValidSegment(pathSegment)) {
-          continue;
-        }
-
         url += `/${pathSegment}`;
-        let label = this.getLabel(pathSegment);
+        if (!this.isValidSegment(pathSegment)) continue;
 
-        // ✅ Handle student-details
+        let label = this.getLabel(pathSegment);
+        let routerLink = url;
+
         if (pathSegment === 'student-details') {
           const studentId = currentRoute.snapshot.paramMap.get('StudentId');
           if (studentId) {
@@ -85,20 +83,25 @@ export class BreadcrumbMenuComponent implements OnInit {
           }
         }
 
-        // ✅ Handle build-details by ID
         if (pathSegment === 'build-details') {
           const buildId = currentRoute.snapshot.paramMap.get('buildId');
+
           if (buildId) {
             label = `${this.getLabel('build-details')} - ${buildId}`;
             url += `/${buildId}`;
           }
         }
 
+        // ✅ Custom routerLink for Dormitories
+        if (pathSegment === 'Dormitories') {
+          routerLink = '/Admin/Dormitories/build-list';
+        }
+
         if (label !== 'Unknown' && label !== 'غير معروف') {
           const isLast = !currentRoute.firstChild;
           this.menuitem.push({
             label,
-            routerLink: isLast ? url : null,
+            routerLink: isLast ? null : routerLink,
           });
         }
       }

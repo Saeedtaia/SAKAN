@@ -42,7 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
         return throwError(() => new Error('Missing tokens for refresh.'));
       }
 
-      return this.authService.refreshToken(accessToken, refreshToken).pipe(
+      return this.authService.refreshToken().pipe(
         switchMap((response: any) => {
           const newAccessToken = response.data.accessToken;
           const newRefreshToken = response.data.refreshToken.tokenString;

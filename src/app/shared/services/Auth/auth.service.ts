@@ -1,8 +1,9 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class AuthService {
   private accessTokenKey = 'accessToken';
   private refreshTokenKey = 'refreshToken';
   private userIdKey = 'userId';
-  constructor(private Http: HttpClient) { }
+  constructor(private Http: HttpClient, private Router: Router, private cookieService: CookieService) { }
 
 
   SignIn(data: any): Observable<any> {
@@ -21,33 +22,38 @@ export class AuthService {
 
 
   saveTokens(response: AuthResponse): void {
-    localStorage.setItem(this.accessTokenKey, response.data.accessToken);
-    localStorage.setItem(this.refreshTokenKey, response.data.refreshToken.tokenString);
-    localStorage.setItem(this.userIdKey, response.data.userId);
+    this.cookieService.set('accessToken', response.data.accessToken);
+    this.cookieService.set('refreshToken', response.data.refreshToken.tokenString);
+    this.cookieService.set('userId', response.data.userId);
   }
 
 
   getAccessToken(): string | null {
-    return localStorage.getItem(this.accessTokenKey);
+    return this.cookieService.get('accessToken') || null;
   }
   // auth.service.ts
-  refreshToken(accessToken: string, refreshToken: string) {
-    const formData = new FormData();
-    formData.append('AccessToken', accessToken);
-    formData.append('RefreshToken', refreshToken);
+  refreshToken() {
+    const accessToken = this.getAccessToken();
+    const refreshToken = this.getRefreshToken();
 
-    return this.Http.post<any>(`/api/v1/authentication/refresh-token`, formData);
+    const formData = new FormData();
+    formData.append('AccessToken', accessToken ?? '');
+    formData.append('RefreshToken', refreshToken ?? '');
+
+    return this.Http.post<any>(`${environment.apiUrl}authentication/refresh-token`, formData);
   }
 
 
   getRefreshToken(): string | null {
-    return localStorage.getItem(this.refreshTokenKey);
+    return this.cookieService.get('refreshToken') || null;
   }
 
   logout(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
+    this.cookieService.delete('accessToken');
+    this.cookieService.delete('refreshToken');
+    this.cookieService.delete('userId');
+    this.Router.navigate(['/Auth/Sign-In']);
+
   }
 
   isLoggedIn(): boolean {

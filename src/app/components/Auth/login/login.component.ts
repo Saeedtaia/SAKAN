@@ -57,8 +57,8 @@ export class LoginComponent {
           this.toast.success('login', res.message);
           this.AuthService.saveTokens(res)
           this.Router.navigate(['/Admin']);
+        },
 
-        }
       }
     )
 

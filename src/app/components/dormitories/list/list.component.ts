@@ -81,6 +81,7 @@ export class ListComponent {
       });
     } else {
       this.form.markAllAsTouched();
+      this.visible = true
     }
   }
 

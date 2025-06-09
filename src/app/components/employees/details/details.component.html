@@ -1,0 +1,65 @@
+<div class="w-1/2 mx-auto mt-10">
+  <div
+    class="relative p-6 overflow-hidden text-white transition-transform duration-300 transform shadow-xl bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl group hover:scale-105"
+  >
+    <!-- Funky Top Right Circle -->
+    <div
+      class="absolute w-full transition-all duration-500 bg-pink-400 rounded-full -top-10 -right-10 opacity-20 group-hover:opacity-30"
+    ></div>
+
+    @defer (when Employee) {
+    <!-- Avatar -->
+    <div class="flex items-center w-full gap-4 mb-6">
+      <p-avatar
+        label="{{ Employee.firstName[0] + Employee.secondName[0] }}"
+        shape="circle"
+        class="text-indigo-600 bg-white"
+        styleClass="mr-2 text-xl shadow"
+        size="large"
+      ></p-avatar>
+
+      <div>
+        <h2 class="text-xl font-bold tracking-wide">
+          {{ Employee.firstName }} {{ Employee.secondName }}
+          {{ Employee.thirdName }} {{ Employee.fourthName }}
+        </h2>
+        <p class="text-sm opacity-90">{{ Employee.userName }}</p>
+      </div>
+    </div>
+
+    <!-- Info List -->
+    <div class="space-y-2 text-sm font-medium">
+      <div class="flex justify-between">
+        <span>Email:</span>
+        <span class="text-pink-200">{{ Employee.email }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Phone:</span>
+        <span class="text-pink-200">{{ Employee.phoneNumber }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Employee ID:</span>
+        <span class="text-pink-200">#{{ Employee.employeeId }}</span>
+      </div>
+    </div>
+    }@placeholder {
+    <p>Loading Employee Data...</p>
+    } @loading {
+    <p>Still loading...</p>
+    } @error {
+    <p>Something went wrong.</p>
+    }
+
+    <!-- Button -->
+    <div class="mt-6 text-right">
+      @defer (when Employee) {
+      <button
+        (click)="emailEmployee(Employee.email)"
+        class="px-4 py-2 text-indigo-600 transition duration-300 bg-white rounded-full shadow cursor-pointer hover:bg-indigo-100"
+      >
+        Contact
+      </button>
+      }
+    </div>
+  </div>
+</div>

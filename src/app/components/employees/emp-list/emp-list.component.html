@@ -1,1 +1,233 @@
-<p>emp-list works!</p>
+<!-- <div class="p-4">
+  <h2 class="mb-6 text-2xl font-bold text-center text-gray-800">Employees</h2>
+
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <p-card
+      *ngFor="let emp of employees"
+      class="overflow-hidden transition-transform shadow-md rounded-2xl hover:scale-105"
+    >
+      <ng-template pTemplate="header">
+        <div class="flex items-center space-x-3">
+          <p-avatar
+            icon="pi pi-user"
+            styleClass="bg-blue-100 text-blue-700"
+            size="large"
+            shape="circle"
+          ></p-avatar>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800">
+              {{ emp.firstName }} {{ emp.secondName }} {{ emp.thirdName }}
+              {{ emp.fourthName }}
+            </h3>
+            <p class="text-sm text-gray-500">{{ emp.userName }}</p>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="mt-3 space-y-2">
+        <div class="flex items-center text-gray-700">
+          <i class="mr-2 text-blue-600 pi pi-envelope" pTooltip="Email"></i>
+          <span class="truncate">{{ emp.email }}</span>
+        </div>
+        <div class="flex items-center text-gray-700">
+          <i
+            class="mr-2 text-green-600 pi pi-phone"
+            pTooltip="Phone Number"
+          ></i>
+          <span>{{ emp.phoneNumber }}</span>
+        </div>
+        <div class="flex items-center text-gray-700">
+          <i
+            class="mr-2 text-purple-600 pi pi-id-card"
+            pTooltip="Employee ID"
+          ></i>
+          <span>ID: {{ emp.employeeId }}</span>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div> -->
+<section class="mx-3">
+  <button
+    (click)="showDialog()"
+    class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden text-black transition-all duration-300 shadow-lg cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl hover:shadow-xl group hover:from-purple-600 hover:to-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-300"
+  >
+    <span
+      class="absolute inset-0 w-full h-full transition duration-300 ease-out transform translate-x-full bg-white group-hover:translate-x-0 opacity-10"
+    ></span>
+
+    <svg
+      class="w-5 h-5 mr-2 transition-transform duration-300 transform group-hover:rotate-90"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+    </svg>
+
+    <span class="relative z-10 text-sm font-semibold tracking-wide uppercase">
+      Create
+    </span>
+  </button>
+  <div class="p-4">
+    <h2 class="mb-4 text-2xl font-bold text-center text-indigo-700">
+      Employee Directory
+    </h2>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div
+        *ngFor="let emp of employees"
+        class="flex flex-col justify-between overflow-hidden transition duration-300 ease-in-out bg-white border border-gray-200 shadow-lg rounded-2xl hover:shadow-sky-900 hover:shadow-2xl"
+      >
+        <div class="p-6 space-y-2">
+          <div class="flex items-center space-x-3">
+            <span
+              class="px-3 py-1 text-sm font-semibold text-indigo-700 bg-indigo-100 rounded-full"
+            >
+              ID: {{ emp.employeeId }}
+            </span>
+          </div>
+
+          <h3 class="text-xl font-semibold text-gray-800">
+            {{ emp.firstName }} {{ emp.secondName }} {{ emp.thirdName }}
+            {{ emp.fourthName }}
+          </h3>
+
+          <p class="flex items-center text-sm text-gray-600">
+            <i class="mr-2 text-indigo-500 pi pi-user"></i>{{ emp.userName }}
+          </p>
+
+          <p class="flex items-center text-sm text-gray-600">
+            <i class="mr-2 text-green-500 pi pi-envelope"></i>{{ emp.email }}
+          </p>
+
+          <p class="flex items-center text-sm text-gray-600">
+            <i class="mr-2 text-blue-500 pi pi-phone"></i>{{ emp.phoneNumber }}
+          </p>
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex flex-col justify-between w-full pt-3">
+            <button
+              (click)="deleteEmployee(emp.employeeId)"
+              class="relative inline-flex items-center justify-center w-full px-6 py-2 mb-2 overflow-hidden font-semibold text-white transition-transform duration-300 ease-in-out bg-red-600 rounded-full shadow-lg cursor-pointer group hover:scale-110 hover:-rotate-1 hover:bg-red-700 hover:shadow-red-500/50 focus:outline-none"
+            >
+              <span
+                class="absolute inset-0 w-full h-full transition duration-300 ease-out scale-125 bg-red-500 opacity-0 group-hover:opacity-100 blur-sm"
+              ></span>
+              <span class="relative z-10 flex items-center space-x-2">
+                <i class="text-white pi pi-trash"></i>
+                <span>Delete</span>
+              </span>
+            </button>
+            <button
+              (click)="GetEmployeeDetails(emp.employeeId)"
+              pButton
+              type="button"
+              label="View Profile"
+              icon="pi pi-eye"
+              class="w-full p-button-sm p-button-rounded p-button-outlined p-button-info"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- dialog -->
+
+<div class="flex justify-center card">
+  <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="max-w-3xl p-8 mx-auto space-y-6 bg-white shadow-2xl rounded-3xl"
+    >
+      @for (field of fields; track $index) {
+      <div class="space-y-2">
+        <label [for]="field.name" class="block text-sm font-bold text-gray-700">
+          {{ field.label }}
+        </label>
+
+        <input
+          [type]="field.type"
+          [id]="field.name"
+          [formControlName]="field.name"
+          class="w-full px-4 py-3 transition duration-300 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{
+            'border-red-500':
+              f[field.name].invalid &&
+              (f[field.name].dirty || f[field.name].touched)
+          }"
+        />
+
+        <div
+          *ngIf="
+            f[field.name].invalid &&
+            (f[field.name].dirty || f[field.name].touched)
+          "
+          class="text-sm text-red-500"
+        >
+          {{ field.label }} is required.
+        </div>
+      </div>
+      }
+
+      <!-- <button
+        type="submit"
+        class="px-6 py-3 font-bold text-white transition duration-300 bg-indigo-600 rounded-xl hover:bg-indigo-700"
+      >
+        Submit
+      </button> -->
+    </form>
+
+    <ng-template #footer>
+      <button
+        (click)="visible = false"
+        (click)="form.reset()"
+        class="inline-flex items-center justify-center px-6 py-3 text-gray-700 transition duration-200 ease-in-out bg-gray-200 shadow-sm cursor-pointer hover:bg-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-400"
+      >
+        <svg
+          class="w-5 h-5 mr-2 text-gray-600 transition-transform duration-300 transform group-hover:scale-110"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide uppercase"
+          >Cancel</span
+        >
+      </button>
+      <button
+        (click)="visible = false"
+        (click)="onSubmit()"
+        type="submit"
+        class="relative inline-flex items-center justify-center px-6 py-3 text-white transition duration-300 ease-in-out shadow-md cursor-pointer rounded-xl hover:shadow-lg group focus:outline-none focus:ring-4 focus:ring-blue-300"
+        style="background-color: #012a5b"
+      >
+        <svg
+          class="w-5 h-5 mr-2 transition-transform duration-300 transform group-hover:scale-110"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide uppercase">Save</span>
+      </button>
+    </ng-template>
+  </p-dialog>
+</div>
+<!-- End of dialog -->

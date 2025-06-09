@@ -23,6 +23,13 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'Issues',
+        loadComponent: () =>
+          import('./components/Issues/list/list.component').then(
+            (m) => m.ListComponent
+          ),
+      },
+      {
         path: 'Home',
         loadComponent: () =>
           import('./components/home/home.component').then(
@@ -68,7 +75,11 @@ export const routes: Routes = [
             redirectTo: 'employees-list',
             pathMatch: 'full',
           },
-          { path: 'employees-list', loadComponent: () => import('./components/employees/emp-list/emp-list.component').then(m => m.EmpListComponent) },
+          { path: 'employees-list', loadComponent: () => import('./components/employees/emp-list/emp-list.component').then(m => m.EmpListComponent) }
+          , {
+            path: 'employees-Details/:employeeId',
+            loadComponent: () => import('./components/employees/details/details.component').then(m => m.DetailsComponent)
+          }
         ],
         //#endregion
       },

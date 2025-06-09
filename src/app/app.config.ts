@@ -26,6 +26,7 @@ import { environment } from '../environments/environment';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 declare const MY_NONCE: string;
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,6 +44,7 @@ export const appConfig: ApplicationConfig = {
     //   useValue: (globalThis as any).myRandomNonceValue,
     // },
     provideZoneChangeDetection({ eventCoalescing: true }),
+    importProvidersFrom(BrowserModule),
     importProvidersFrom(ToastModule),
     MessageService,
     provideRouter(routes),

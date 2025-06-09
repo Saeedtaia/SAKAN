@@ -1,5 +1,30 @@
 @if (!loading; ) {
 <section class="mx-3">
+  <button
+    (click)="showDialog()"
+    type="button"
+    class="relative inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-white transition-all duration-300 ease-in-out shadow-lg rounded-2xl bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-600 hover:from-blue-600 hover:to-purple-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      class="w-5 h-5"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M4 4v5h.582a2.5 2.5 0 011.768.732L10 14.5a2.5 2.5 0 001.768.732H16v-2M20 20l-4-4m0 0l-4-4m4 4H8"
+      />
+    </svg>
+    Update
+    <span
+      class="absolute w-1/2 h-1 transform -translate-x-1/2 bg-white rounded -bottom-1 left-1/2 opacity-20 blur-sm"
+    ></span>
+  </button>
+
   <div
     class="p-6 mx-auto mt-10 bg-white shadow-2xl rounded-2xl animate-fade-in"
   >
@@ -60,3 +85,115 @@
   </div>
 </div>
 }
+<!-- dialog -->
+
+<div class="flex justify-center card">
+  <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="max-w-3xl p-8 mx-auto space-y-6 bg-white shadow-2xl rounded-3xl"
+    >
+      @for (field of [ { name: 'Name', label: 'Name', type: 'text' }, { name:
+      'Description', label: 'Description', type: 'text' }, { name:
+      'AddressInDetails', label: 'Address In Details', type: 'text' }, { name:
+      'MapSearchText', label: 'Map Search Text', type: 'text' }, { name: 'Type',
+      label: 'Type (Integer) only 0 or 1 ', type: 'number' }, { name:
+      'VillageId', label: 'Village ID (Integer)', type: 'number' } ]; track
+      $index) {
+      <div class="space-y-2">
+        <label [for]="field.name" class="block text-sm font-bold text-gray-700">
+          {{ field.label }}
+        </label>
+
+        <input
+          [type]="field.type"
+          [id]="field.name"
+          [formControlName]="field.name"
+          class="w-full px-4 py-3 transition duration-300 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{
+            'border-red-500':
+              f[field.name].invalid &&
+              (f[field.name].dirty || f[field.name].touched)
+          }"
+        />
+
+        <div
+          *ngIf="
+            f[field.name].invalid &&
+            (f[field.name].dirty || f[field.name].touched)
+          "
+          class="text-sm text-red-500"
+        >
+          {{ field.label }} is required.
+        </div>
+      </div>
+      }
+
+      <!-- <div class="flex justify-end gap-4 mt-8">
+        <button
+          type="button"
+          class="px-6 py-3 font-semibold text-gray-800 transition duration-300 bg-gray-300 hover:bg-gray-400 rounded-xl"
+          (click)="form.reset()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="px-6 py-3 font-semibold text-white transition duration-300 shadow-md rounded-xl hover:shadow-lg"
+          style="background-color: #012a5b"
+        >
+          Save
+        </button>
+      </div> -->
+    </form>
+    <ng-template #footer>
+      <button
+        (click)="visible = false"
+        (click)="form.reset()"
+        class="inline-flex items-center justify-center px-6 py-3 text-gray-700 transition duration-200 ease-in-out bg-gray-200 shadow-sm cursor-pointer hover:bg-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-400"
+      >
+        <svg
+          class="w-5 h-5 mr-2 text-gray-600 transition-transform duration-300 transform group-hover:scale-110"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide uppercase"
+          >Cancel</span
+        >
+      </button>
+      <button
+        (click)="visible = false"
+        (click)="onSubmit()"
+        type="submit"
+        class="relative inline-flex items-center justify-center px-6 py-3 text-white transition duration-300 ease-in-out shadow-md cursor-pointer rounded-xl hover:shadow-lg group focus:outline-none focus:ring-4 focus:ring-blue-300"
+        style="background-color: #012a5b"
+      >
+        <svg
+          class="w-5 h-5 mr-2 transition-transform duration-300 transform group-hover:scale-110"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide uppercase">Save</span>
+      </button>
+    </ng-template>
+  </p-dialog>
+</div>
+<!-- End of dialog -->
