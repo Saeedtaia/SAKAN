@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ToastService } from './../../../shared/services/toaster/toast.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { EmployeesService } from '../../../shared/services/EMP/employees.service';
 import { Employee } from '../../../shared/interfaces/employee';
 import { ButtonModule } from 'primeng/button';
@@ -12,6 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Dialog } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { complexAnimationSequence } from '../../../shared/animation/complix';
 @Component({
   selector: 'app-emp-list',
   standalone: true,
@@ -20,6 +21,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   styleUrl: './emp-list.component.scss'
 })
 export class EmpListComponent implements OnInit {
+  @ViewChildren('complexDiv') complexDiv!: QueryList<ElementRef>;
   visible: boolean = false;
   form: FormGroup;
   employees: Employee[] = [];
@@ -48,6 +50,7 @@ export class EmpListComponent implements OnInit {
       next: (res) => {
         this.ToastService.success('Employees', 'Employees loaded successfully');
         this.employees = res.data;
+        complexAnimationSequence(this.complexDiv, 0.9);
       }
     })
   }
