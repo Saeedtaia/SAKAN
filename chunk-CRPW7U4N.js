@@ -1,1 +1,0 @@
-import{Kb as o,Lb as s,dc as i,ia as n,mc as a}from"./chunk-6VXWZSYY.js";var p=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-list"]],standalone:!0,features:[a],decls:2,vars:0,template:function(e,l){e&1&&(o(0,"p"),i(1,"list works!"),s())}})};export{p as ListComponent};
