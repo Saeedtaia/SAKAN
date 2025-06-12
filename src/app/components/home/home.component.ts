@@ -105,7 +105,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     {
       lable: 'students',
       value: 3202,
-      icon: 'text-2xl fal fa-users',
+      icon: 'text-2xl fal fa-graduation-cap',
       coin: 'student',
     },
     {
@@ -121,21 +121,21 @@ export class HomeComponent implements AfterViewInit, OnInit {
       coin: 'dormitory',
     },
     {
-      lable: 'students',
-      value: 3202,
+      lable: 'Employees',
+      value: 673,
       icon: 'text-2xl fal fa-users',
       coin: 'student',
     },
     {
-      lable: 'totalApplications',
-      value: 4222,
-      icon: 'text-2xl fal fa-map',
+      lable: 'Issues',
+      value: 2,
+      icon: 'text-2xl fal fa-bug',
       coin: 'application',
     },
     {
-      lable: 'totalDormitories',
+      lable: 'Managers',
       value: 13,
-      icon: 'text-2xl fal fa-home',
+      icon: 'text-2xl fal fa-user-tie',
       coin: 'dormitory',
     },
   ];

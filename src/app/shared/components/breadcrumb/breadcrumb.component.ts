@@ -91,6 +91,13 @@ export class BreadcrumbMenuComponent implements OnInit {
             url += `/${buildId}`;
           }
         }
+        if (pathSegment === 'employees-Details') {
+          const empId = currentRoute.snapshot.paramMap.get('employeeId');
+          if (empId) {
+            label = `${this.getLabel('employees-Details')} - ${empId}`;
+            url += `/${empId}`;
+          }
+        }
 
         // ✅ Custom routerLink for Dormitories
         if (pathSegment === 'Dormitories') {
@@ -110,6 +117,7 @@ export class BreadcrumbMenuComponent implements OnInit {
 
   private getLabel(route: string): string {
     const labels: { [key: string]: { en: string; ar: string } } = {
+      'employees-Details': { en: `Employee Details`, ar: 'تفاصيل الموظف' },
       'build-details': { en: 'Building Details Number', ar: 'تفاصيل المبنى رقم' },
       Auth: { en: 'Auth', ar: 'المصادقة' },
       'Auth-Login': { en: 'Login', ar: 'تسجيل الدخول' },

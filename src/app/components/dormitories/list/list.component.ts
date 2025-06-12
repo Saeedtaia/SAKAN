@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { ToastService } from './../../../shared/services/toaster/toast.service';
+import { Component } from '@angular/core';
 import { tap } from 'rxjs';
 import Build from '../../../shared/data/building/build';
 import { BuildsListService } from '../../../shared/services/buildings/builds-list.service';
@@ -18,8 +19,7 @@ import { complexAnimationSequence } from '../../../shared/animation/complix';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
-export class ListComponent implements AfterViewInit {
-  @ViewChildren('complexDiv') complexDiv!: QueryList<ElementRef>;
+export class ListComponent {
 
   visible: boolean = false;
   form: FormGroup;
@@ -31,7 +31,8 @@ export class ListComponent implements AfterViewInit {
   constructor(
     private buildsListService: BuildsListService,
     private fb: FormBuilder,
-    private CraetebuildService: CraetebuildService
+    private CraetebuildService: CraetebuildService,
+    private ToastService: ToastService
   ) {
     this.form = this.fb.group({
       Name: ['', Validators.required],
@@ -50,19 +51,12 @@ export class ListComponent implements AfterViewInit {
           this.normalBuildings = this.buildingsList.filter(b => b.type === 'Normal');
           this.hotelBuildings = this.buildingsList.filter(b => b.type !== 'Normal');
 
-          setTimeout(() => {
-            complexAnimationSequence(this.complexDiv, 0.9);
-          });
+
         })
       )
       .subscribe();
   }
 
-  ngAfterViewInit(): void {
-    this.complexDiv.changes.subscribe(() => {
-      complexAnimationSequence(this.complexDiv, 0.9);
-    });
-  }
 
   showDialog() {
     this.visible = true;
@@ -83,6 +77,7 @@ export class ListComponent implements AfterViewInit {
         next: (res) => {
           console.log('Building created successfully:', res);
           this.visible = false;
+          this.ToastService.success("Buildings", res.message);
 
           this.buildingsList.push(res.data);
           this.normalBuildings = this.buildingsList.filter(b => b.type === 'Normal');
@@ -92,6 +87,7 @@ export class ListComponent implements AfterViewInit {
         },
         error: (err) => {
           console.error('Error creating building:', err);
+          this.ToastService.error("Buildings", err.message || "An error occurred while creating the building.");
         }
       });
     } else {

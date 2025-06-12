@@ -1,15 +1,18 @@
-// admin.guard.ts
 import { CanActivateFn, Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode'
 import { inject } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
+import { AuthService } from '../services/Auth/auth.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const token = localStorage.getItem('accessToken');
+  const authService = inject(AuthService);
+
+  const token = authService.getAccessToken();
 
   if (!token) {
-    router.navigate(['/Auth/Sign-In']); // redirect to sign-in page
+    router.navigate(['/Auth/Sign-In']);
     return false;
+
   }
 
   try {
@@ -19,11 +22,11 @@ export const adminGuard: CanActivateFn = (route, state) => {
     if (role === 'Admin') {
       return true;
     } else {
-      router.navigate(['/unauthorized']); // optional page for non-admins
+      router.navigate(['/unauthorized']); // optional route for non-admins
       return false;
     }
   } catch (err) {
-    router.navigate(['/sign-in']);
+    router.navigate(['/Auth/Sign-In']);
     return false;
   }
 };

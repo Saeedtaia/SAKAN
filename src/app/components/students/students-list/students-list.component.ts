@@ -17,6 +17,8 @@ import { InputIcon } from 'primeng/inputicon';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { CalendarModule } from 'primeng/calendar';
+import { StudentService } from '../../../shared/services/student/student.service';
+import { student } from '../../../shared/interfaces/student';
 
 @Component({
   selector: 'app-students-list',
@@ -44,6 +46,7 @@ export class StudentsListComponent implements OnInit {
   students: Student[] = [];
   loading: boolean = true;
   selectedGender: string | null = null;
+  oldStudents: student[] = [];
 
   genders = [
     { label: 'genders.male', value: 'M' },
@@ -52,10 +55,21 @@ export class StudentsListComponent implements OnInit {
 
   constructor(
     public PrimeNG: PrimeNG,
-    public translocoService: TranslocoService
-  ) {}
+    public translocoService: TranslocoService,
+    private StudentService: StudentService
+  ) { }
 
   ngOnInit(): void {
+    this.StudentService.getStudents().subscribe({
+      next: (students) => {
+        console.log('Students loaded:', students);
+
+      },
+      error: () => {
+        this.loading = false;
+        console.error('Failed to load students');
+      },
+    })
     this.setupTranslations();
 
     setTimeout(() => {

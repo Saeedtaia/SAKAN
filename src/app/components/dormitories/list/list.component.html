@@ -197,6 +197,19 @@
 
 <div class="flex justify-center card">
   <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <h3
+      class="relative inline-block pb-2 text-2xl font-bold text-center text-gray-800 dark:text-white"
+    >
+      <span
+        class="text-center text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text"
+      >
+        Fill the form to create build
+      </span>
+      <span
+        class="absolute bottom-0 left-0 w-full h-1 rounded bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+      ></span>
+    </h3>
+
     <form
       [formGroup]="form"
       (ngSubmit)="onSubmit()"

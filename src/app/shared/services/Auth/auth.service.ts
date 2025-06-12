@@ -1,3 +1,4 @@
+import { ToastService } from './../toaster/toast.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,7 @@ export class AuthService {
   private accessTokenKey = 'accessToken';
   private refreshTokenKey = 'refreshToken';
   private userIdKey = 'userId';
-  constructor(private Http: HttpClient, private Router: Router, private cookieService: CookieService) { }
+  constructor(private Http: HttpClient, private Router: Router, private cookieService: CookieService, private toast: ToastService) { }
 
 
   SignIn(data: any): Observable<any> {
@@ -20,12 +21,38 @@ export class AuthService {
 
 
 
-
   saveTokens(response: AuthResponse): void {
-    this.cookieService.set('accessToken', response.data.accessToken);
-    this.cookieService.set('refreshToken', response.data.refreshToken.tokenString);
-    this.cookieService.set('userId', response.data.userId);
+    const accessToken = response.data.accessToken;
+    const refreshToken = response.data.refreshToken.tokenString;
+    const userId = response.data.userId;
+
+    // Parse the expireAt string to a Date object
+    const expireAt = new Date(response.data.refreshToken.expireAt);
+    this.setAutoLogout(expireAt);
+
+
+
+    // Pass the exact expiry date
+    this.cookieService.set('accessToken', accessToken, expireAt, '/', '', false, 'Strict');
+    this.cookieService.set('refreshToken', refreshToken, expireAt, '/');
+    this.cookieService.set('userId', userId, expireAt, '/');
+
   }
+  setAutoLogout(expireAt: Date) {
+    const timeUntilExpiry = new Date(expireAt).getTime() - Date.now();
+    console.log(`Time until expiry: ${timeUntilExpiry} milliseconds`);
+
+
+    if (timeUntilExpiry == 0) {
+      setTimeout(() => {
+        this.toast.info("Authentication", 'Your session has expired. Please log in again.');
+        this.logout();
+      }, timeUntilExpiry);
+    }
+  }
+
+
+
 
 
   getAccessToken(): string | null {

@@ -14,18 +14,24 @@ export class RemoveBackslashesPipe implements PipeTransform {
     // Remove backslashes
     let cleaned = value.replace(/\\/g, '');
 
-    // Remove width and height
+    // Remove width and height attributes
     cleaned = cleaned.replace(/width="[^"]*"/g, '');
     cleaned = cleaned.replace(/height="[^"]*"/g, '');
 
-    // Add class to iframe
+    // Clean up extra spaces
+    cleaned = cleaned.replace(/\s{2,}/g, ' ');
+
+    // Add Tailwind classes to all iframes
     cleaned = cleaned.replace(
-      /<iframe([^>]*)>/,
-      '<iframe class="w-full h-full"$1>'
+      /<iframe([^>]*)>/g,
+      (match, attrs) => {
+        return attrs.includes('class=')
+          ? `<iframe${attrs}>`
+          : `<iframe class="w-full h-full"${attrs}>`;
+      }
     );
 
-    // Sanitize to allow binding
+    // Return sanitized HTML
     return this.sanitizer.bypassSecurityTrustHtml(cleaned);
   }
-
 }

@@ -49,7 +49,7 @@ export class SidebarComponent {
         routeLink: 'Employees',
         icon: 'fal fa-user-tie',
         label: 'Employees',
-        overlaybadge: 'true',
+        overlaybadge: 'false',
       },
       {
         routeLink: 'Dormitories',

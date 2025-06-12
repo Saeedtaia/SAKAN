@@ -17,7 +17,7 @@ import { complexAnimationSequence } from '../../../shared/animation/complix';
 @Component({
   selector: 'app-emp-list',
   standalone: true,
-  imports: [ButtonModule, RippleModule, NgClass, NgIf, NgFor, CardModule, Dialog, AvatarModule, TooltipModule, InputTextModule, ReactiveFormsModule],
+  imports: [ButtonModule, RippleModule, NgClass, NgIf, CardModule, Dialog, AvatarModule, TooltipModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './emp-list.component.html',
   styleUrl: './emp-list.component.scss'
 })
@@ -60,11 +60,6 @@ export class EmpListComponent implements OnInit, AfterViewInit {
       next: (res) => {
         this.ToastService.success('Employees', 'Employees loaded successfully');
         this.employees = res.data;
-
-        // Wait for DOM to update before running animation
-        setTimeout(() => {
-          complexAnimationSequence(this.complexDiv, 0.2);
-        }, 0);
       }
     });
   }
@@ -118,9 +113,11 @@ export class EmpListComponent implements OnInit, AfterViewInit {
       this.EmpService.AddEmployee(formData).subscribe({
         next: (res) => {
           this.ToastService.success('Employees', res.message);
-          this.visible = false;
+
           this.employees.push(res.data);
+          this.visible = false;
           this.form.reset();
+
         },
         error: (err) => {
           console.error('Error creating Employee:', err);

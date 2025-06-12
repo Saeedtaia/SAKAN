@@ -6,12 +6,13 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, filter, take, finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private Router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.authService.getAccessToken();
@@ -39,6 +40,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
       if (!accessToken || !refreshToken) {
         this.isRefreshing = false;
+        this.Router.navigate(['/Auth/Sign-In']); // Redirect to login if tokens are missing
         return throwError(() => new Error('Missing tokens for refresh.'));
       }
 
