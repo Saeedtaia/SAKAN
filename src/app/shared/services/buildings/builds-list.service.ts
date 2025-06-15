@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, retry, tap, throwError } from 'rxjs';
 import { environment } from './../../../../environments/environment';
+import { UpdateRoomDto } from '../../../components/dormitories/rooms/rooms.component';
 
 @Injectable({
   providedIn: 'root',
@@ -61,5 +62,21 @@ export class BuildsListService {
       errorMessage = `Server-side error: ${error.status} - ${error.message}`;
     }
     return throwError(() => new Error(errorMessage));
+  }
+
+  GetAllRooms(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}rooms/list`)
+  }
+
+  updateRoom(data: any): Observable<any> {
+    return this.http.put(`${environment.apiUrl}rooms/update`, data);
+  }
+
+  CreateRoom(formData: FormData): Observable<any> {
+    return this.http.post(`${environment.apiUrl}rooms/create`, formData);
+  }
+
+  DeleteRoom(id: number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}rooms/${id}`)
   }
 }

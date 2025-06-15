@@ -27,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { ErrorInterceptor } from './shared/interceptors/403error.interceptor';
 declare const MY_NONCE: string;
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +35,11 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
     },
     {
       provide: CSP_NONCE,

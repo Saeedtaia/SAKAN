@@ -1,3 +1,5 @@
+import { NewStudent } from './../../../shared/data/voilance/violation.model';
+import { ToastService } from './../../../shared/services/toaster/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { PrimeNG } from 'primeng/config';
@@ -18,8 +20,8 @@ import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { CalendarModule } from 'primeng/calendar';
 import { StudentService } from '../../../shared/services/student/student.service';
-import { student } from '../../../shared/interfaces/student';
-
+import { Newstudent, OldStudent } from '../../../shared/interfaces/student';
+import { TabsModule } from 'primeng/tabs';
 @Component({
   selector: 'app-students-list',
   standalone: true,
@@ -37,45 +39,90 @@ import { student } from '../../../shared/interfaces/student';
     InputIcon,
     TranslocoPipe,
     CalendarModule,
+    TabsModule
   ],
   providers: [PrimeNG],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.scss',
 })
 export class StudentsListComponent implements OnInit {
-  students: Student[] = [];
+  selectedTab: string = '1'; // or number, depending on your tab values
+
+  onTabChange(event: string | number) {
+    if (this.selectedTab === '0') {
+      this.StudentService.getStudents().subscribe({
+        next: (res) => {
+          // console.log('res loaded:', res);
+          this.NewStudent = res.data;
+          if (this.NewStudent.length > 10) {
+            this.baginator = true
+          }
+          this.loading = false;
+          this.ToastService.success("Students", res.message);
+        },
+      })
+    } else if (this.selectedTab === '1') {
+      this.StudentService.GetOldStudents().subscribe({
+        next: (res) => {
+          this.OldStudents = res.data
+          if (this.NewStudent.length > 10) {
+            this.baginatorOld = true
+          }
+          this.loadingOld = false
+          this.ToastService.success("Students", res.message);
+        }
+      })
+    }
+  }
+
   loading: boolean = true;
+  loadingOld: boolean = true;
   selectedGender: string | null = null;
-  oldStudents: student[] = [];
+  NewStudent: Newstudent[] = [];
+  OldStudents: OldStudent[] = []
+  baginator: boolean = false
+  baginatorOld: boolean = false
 
   genders = [
-    { label: 'genders.male', value: 'M' },
-    { label: 'genders.female', value: 'F' },
+    { label: 'genders.male', value: 0 },
+    { label: 'genders.female', value: 1 },
   ];
 
   constructor(
     public PrimeNG: PrimeNG,
     public translocoService: TranslocoService,
-    private StudentService: StudentService
+    private StudentService: StudentService,
+    private ToastService: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.StudentService.getStudents().subscribe({
-      next: (students) => {
-        console.log('Students loaded:', students);
+    if (this.selectedTab === '0') {
+      this.StudentService.getStudents().subscribe({
+        next: (res) => {
+          // console.log('res loaded:', res);
+          this.NewStudent = res.data;
+          if (this.NewStudent.length > 10) {
+            this.baginator = true
+          }
+          this.loading = false;
+          this.ToastService.success("Students", res.message);
+        },
+      })
+    } else if (this.selectedTab === '1') {
+      this.StudentService.GetOldStudents().subscribe({
+        next: (res) => {
+          this.OldStudents = res.data
+          if (this.NewStudent.length > 10) {
+            this.baginatorOld = true
+          }
+          this.loadingOld = false
+          this.ToastService.success("Students", res.message);
+        }
+      })
+    }
 
-      },
-      error: () => {
-        this.loading = false;
-        console.error('Failed to load students');
-      },
-    })
     this.setupTranslations();
 
-    setTimeout(() => {
-      this.students = [...FAKE_STUDENTS];
-      this.loading = false;
-    }, 1000);
   }
 
   private setupTranslations() {
@@ -122,17 +169,18 @@ export class StudentsListComponent implements OnInit {
   }
 
   getSeverity(
-    gender: string
+    gender: number
   ): 'success' | 'info' | 'warn' | 'danger' | 'contrast' | undefined {
     switch (gender) {
-      case 'M':
+      case 0: // Male
         return 'info';
-      case 'F':
+      case 1: // Female
         return 'danger';
       default:
         return 'warn';
     }
   }
+
   getCurrentDate(): Date {
     return new Date();
   }

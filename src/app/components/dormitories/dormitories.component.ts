@@ -16,5 +16,10 @@ export class DormitoriesComponent {
       icon: 'location_city',
       label: 'Build List',
     },
+    {
+      routeLink: 'builds-rooms',
+      icon: 'meeting_room',
+      label: 'Builds Rooms',
+    },
   ]
 }

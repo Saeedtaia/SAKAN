@@ -3,6 +3,8 @@ import { AuthComponent } from './layout/auth/auth.component';
 import { studentDetailsGuard } from './shared/guards/studentdetails.guard';
 import { sTDdetailsResolver } from './shared/resolvers/stddetails.resolver';
 import { adminGuard } from './shared/guards/admin.guard';
+import { employeeGuard } from './shared/guards/emp.guard';
+import { roleGuardFactory } from './shared/guards/role.guard';
 
 export const routes: Routes = [
   {
@@ -13,7 +15,7 @@ export const routes: Routes = [
   //main layout
   {
     path: 'Admin',
-    canActivate: [adminGuard],
+    canActivate: [roleGuardFactory(['Admin', 'Employee'])],
     loadComponent: () =>
       import('./layout/main/main.component').then((m) => m.MainComponent),
     children: [
@@ -48,6 +50,11 @@ export const routes: Routes = [
             path: '',
             redirectTo: 'build-list',
             pathMatch: 'full',
+          },
+          {
+            path: "builds-rooms",
+            loadComponent: () => import('./components/dormitories/rooms/rooms.component').then(
+              (m) => m.RoomsComponent)
           },
           {
             path: "build-list",
@@ -89,6 +96,18 @@ export const routes: Routes = [
           import('./components/settings/settings.component').then(
             (m) => m.SettingsComponent
           ),
+        children: [
+          {
+            path: "", redirectTo: "Registration-period", pathMatch: "full"
+          },
+          {
+            canActivate: [employeeGuard],
+            path: "Registration-period",
+            loadComponent: () => import('./components/settings/registration-period/registration-period.component').then(
+              (m) => m.RegistrationPeriodComponent
+            )
+          }
+        ]
       },
       {
         path: 'Students',
@@ -141,6 +160,14 @@ export const routes: Routes = [
                 (m) => m.MessagesComponent
               ),
           },
+          {
+            path: 'students-Attendance',
+            loadComponent: () =>
+              import('./components/students/attendance/attendance.component').then(
+                (m) => m.AttendanceComponent
+              ),
+          },
+
         ],
         //#endregion
       },
@@ -156,6 +183,10 @@ export const routes: Routes = [
       { path: "", redirectTo: "Sign-In", pathMatch: "full" },
       { path: "Sign-In", loadComponent: () => import("./components/Auth/login/login.component").then(m => m.LoginComponent) },
     ]
+  },
+  {
+    path: "unauthorized",
+    loadComponent: () => import("./components/unauthorized/unauthorized.component").then(m => m.UnauthorizedComponent)
   },
   {
     path: '**',

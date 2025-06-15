@@ -43,7 +43,7 @@ export class SidebarComponent {
         routeLink: 'Students',
         icon: 'fal fa-users',
         label: 'Students',
-        overlaybadge: 'true',
+        overlaybadge: 'false',
       },
       {
         routeLink: 'Employees',

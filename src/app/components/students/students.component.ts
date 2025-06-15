@@ -37,15 +37,11 @@ export class StudentsComponent implements OnInit {
       icon: 'assignment',
       label: 'Students Applications',
     },
+
     {
-      routeLink: 'students-Messages',
-      icon: 'messages',
-      label: 'Students Messages',
-    },
-    {
-      routeLink: 'Events',
+      routeLink: 'students-Attendance',
       icon: 'event',
-      label: 'Students Events',
+      label: 'Students Attendance',
     },
   ];
 }

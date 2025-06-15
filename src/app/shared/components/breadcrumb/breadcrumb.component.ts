@@ -117,6 +117,7 @@ export class BreadcrumbMenuComponent implements OnInit {
 
   private getLabel(route: string): string {
     const labels: { [key: string]: { en: string; ar: string } } = {
+      "Registration-period": { en: "Registration Period", ar: "فترات التقديم" },
       'employees-Details': { en: `Employee Details`, ar: 'تفاصيل الموظف' },
       'build-details': { en: 'Building Details Number', ar: 'تفاصيل المبنى رقم' },
       Auth: { en: 'Auth', ar: 'المصادقة' },
